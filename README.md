@@ -88,5 +88,3 @@ Don't try to hack your employer, newspaper, school or anyone else. Don't launch 
 Do however, practice the things you learn in this course in a fantastic lab environment such as Hackthebox.
 {% endhint %}
 
-{% page-ref page="preparation.md" %}
-
