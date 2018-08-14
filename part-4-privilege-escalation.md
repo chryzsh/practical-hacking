@@ -175,5 +175,3 @@ dpkg -l rpm -qa`
 
 An example here is for instance that you see a local database like mysql is running. Maybe you are able to find credentials for it and log into it locally on the box.
 
-{% page-ref page="what-now.md" %}
-

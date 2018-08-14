@@ -213,5 +213,3 @@ Google default credentials for whatever you are looking at, combine different us
 
 Good luck!
 
-{% page-ref page="part-3-web-hacking.md" %}
-

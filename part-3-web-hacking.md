@@ -178,7 +178,5 @@ And when we have a table, let's just dump all the content of that table.
 
 **We should end up with a complete dump of all the columns and rows in the** `users` **table in the** `corporate` **database that is hosted on a** `mysql` **dbms. And we barely did anything but type some lines and press enter! Magic!**
 
-{% page-ref page="part-4-privilege-escalation.md" %}
-
 
 

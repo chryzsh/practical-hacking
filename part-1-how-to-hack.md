@@ -508,5 +508,3 @@ If you still struggle with the above to the extent where you can't even figure w
 
 Happy hacking!
 
-{% page-ref page="part-2-hacking-manually.md" %}
-

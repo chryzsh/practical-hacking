@@ -47,5 +47,3 @@ Make a new notes file for each box. When you are hacking, put all these things i
 * Review your notes after each box and do some basic formatting \(Boring\)
 * Make an additional document / note with useful commands and tricks \(super important\)
 
-{% page-ref page="part-1-how-to-hack.md" %}
-

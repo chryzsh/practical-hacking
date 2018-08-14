@@ -116,5 +116,3 @@ The site [Linux Journey](https://linuxjourney.com/) provides a fine introduction
 
 Unless you are already a Linux sysadmin and these things are absolutely clear to you, I recommend doing at least the Command Line module. It allows you to become familiar with basic navigation in the terminal. Test all the commands in the terminal in Kali Linux. **Being able to use Linux and the terminal efficiently is the alpha and omega of hacking.**
 
-{% page-ref page="before-you-start.md" %}
-
