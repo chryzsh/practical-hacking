@@ -97,9 +97,9 @@ To interact with a session use the following command, where n is the numbered se
 
 ctrl+z is the shortcut to background sessions.
 
-Now, we need to make sure the payload is triggered. We can view \(and execute\) the payload file in the browser at a URL www.example.com/upload/yourname.aspx. 
+#### Well, now what?
 
-What’s the vulnerability here? - Allowing unauthenticated uploading of files - Not limiting allowed file types \(JPG, PDF\) - Allowing access to files directly in the URL. The payload itself makes the server run malicious code that connects to our listener, and boom, we've caught a shell! 
+Ok, so we have prepared our exploit and listener. Now we need to actually find a way to upload and execute this payload on our target. In Part 1 of this guide we used an already prepared exploit module in Metasploit to exploit the target, but this time we actually have to manually do the uploading and execution. We won't give away any HTB solutions, but if you try the machine Deve, you can probably figure out how this is going to work. Try to first find a way to upload the payload to the machine. Many services allow file uploads! You then need some way to execute it. When you are able to find a way, remember to have your listener ready.
 
 ## **Linux terminal tricks**
 
