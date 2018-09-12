@@ -28,19 +28,19 @@ description: >-
 
 In case you decided to skip the preparation stages, [Hackthebox](https://www.hackthebox.eu/invite) is the platform we will be using in this guide to allow you to practice your hacking skills.
 
-Hacking machines on Hackthebox is somewhat similar to hacking in the real world. The primary goal is to gain command line / terminal access to the target machine. That means we get what's called "code execution". That means you have found a way to execute arbitrary code on the target and hence you can take control over it. For each machine there is a flag that proves you have gained access to the machine, regardless of privilege.
+Hacking machines on Hackthebox is somewhat similar to hacking in the real world. The HTB lab conssits of a gret chunk of independent boxes that are not connected to each other. That means each machine must be hacked individually. **The main goal of "hacking" is to gain command line / terminal access to the target machine with the highest privilege possible**. We usually achieve some form of command line access to target through what is called "code execution". That means you have found a way to execute arbitrary code on the target and hence you can start taking control over it. 
 
 Usually, you gain access as a user or service account. The next challenge then becomes to escalate your privileges to the highest possible level. That means, if you are a regular user or a service account, you want to become administrator. Another flag is made available only through access with this level of privilege.
 
-To summarize, there are two flags: "**user.txt**" and "**root.txt**". Getting user access gives you the user flag, getting root/Administrator access gives you both flags. The flags are simply unqiue MD5 strings that looks something like this:`bb1d10195b0a54e350cg015009a8095y`
+For each machine there is a flag that proves you have gained access to the machine, regardless of privilege. There are two flags: **user.txt** and **root.txt**. Getting access to the machine as a regular user  gives you the user flag, while getting access as `root` or `Administrator` access gives you both flags. The flags are simply unqiue MD5 strings that looks something like this:`bb1d10195b0a54e350cg015009a8095y`
 
 #### Submitting flags on Hackthebox
 
-After you have successfully compromised and gained access to a box, and found the flags, they must be submitted by pressing the two icons on the right in the machines panel on HTB. Flags provde that you completed the box. Some boxes are built in such a way that exploits might give you administrative access straight away. If so, you can grab both flags, because with admin privs we have full access to everything on the machine. For each flag you get a certain amount of points, depending on the difficulty of the machine.
+After you have successfully compromised and gained access to a box, and found the flags, they must be submitted by pressing the two icons on the right in the machines panel on HTB. Flags provde that you completed the box and for each flag you get a certain amount of points, depending on the difficulty of the machine. Some boxes are built in such a way that compromising them might give you administrative access straight away. If so, you can grab both flags, because with administrative privileges we have full access to everything on the machine. 
 
 ![The two rightmost buttons on each machine opens a flag submission panel](.gitbook/assets/image%20%282%29.png)
 
-Depending on whether the operating system is Windows or Linux, the flags on the machines are usually located in the following places, where the `<username>` is the username on the machine, which of course is different from box to box.
+Depending on whether the operating system is Windows or Linux, the flags on the machines are usually located in the places listed below. The `<username>` is the username of theu ser on the machine, which  is different on all the boxes. The Administrator user is usually not renamed, but it can happen that flaggs are hidden, so beware. 
 
 **Windows**
 
@@ -63,26 +63,26 @@ This is a highly simplified approach to hacking invidiual boxes with four major 
 
 ## **1 - Enumeration**
 
-**Goal:** Gather information about the target
+**Goal** - Gather information about the target
 
-**Tools:** Nmap, web browser
+**Tools** - ****Nmap, web browser
 
-First things first: Read carefully and write down everything you see on the screen. This may sound a bit weird, but we truly want you to write down any name, software, technology, email address or unknown factor that you discover. **The devil is the details**. The fact that you did not write down the name of that piece of software may lead you to an abrupt halt later down the road.
+**First things first -** Read carefully and write down everything you see on the screen. This may sound a bit weird, but we truly want you to write down any name, software, technology, email address or unknown factor that you discover when hacking. **The devil is the details**. The fact that you did not write down the name of that piece of software may lead you to an abrupt halt later down the road.
 
-### F**ind IP address open ports and services**
+### F**ind IP address, open ports and services**
 
 First, we want to find the IP address of the target. Since we are using HTB as a platform this is given in the left pane under _Machines_.
 
-To discover ports, services and sometimes even the operating system we use the tool called _nmap._ It is a very powerful port scanner that will help us a lot. The basic syntax for nmap is: 
+To discover ports, services and sometimes even the operating system we use the tool called `nmap`_._ It is a very powerful port scanner that will help us a lot. The basic syntax for nmap is: 
 
-`$ nmap <ip-address>` - scans the IP address for open TCP ports
+`nmap <ip-address>` - scans the provide dIP address for open TCP ports.
 
-`$ nmap <ip-address> -A -n` - same as above. Additionally, the **-A** option enables OS and version detection, script scanning and traceroute. The **-n** option is to prevent nmap from performing DNS resolution, which will make the scan go slightly faster.
+`nmap <ip-address> -A -n` - same as above. Additionally, the **-A** option enables OS and version detection, script scanning and traceroute. The **-n** option is to prevent nmap from performing DNS resolution, which will make the scan go slightly faster.
 
-### How to read nmap results
+### How to read `nmap` results
 
 ```text
-$ nmap -A -n 64.13.134.52
+nmap -A -n 64.13.134.52
 ```
 
 ```text
@@ -117,7 +117,7 @@ Nmap done: 1 IP address (1 host up) scanned in 22.19 seconds
 
 This is a pretty regular nmap scan and the output can look at bit daunting at first, but when getting used to reading nmap output, The result of this scan reveals that some ports are open. Each line that starts with a number indicates a port that nmap has identified with a status. Here you can see a mix of open and closed ports, and naturally we want to focus on those that are open.
 
- In the beginning, these ports may not mean that much to you. Most ports are connected to a service, and they are usually the same port connected to the same service, but not always. Below are some very common port - service associations that you will see. Only by hacking more boxes will you start recognizing services and know which ones are more likely targets than others.
+ In the beginning, these ports may not mean that much to you. Most ports are connected to a service, and they are usually the same port connected to the same service, but not always. Below are some very common port to service associations that you will see. Only by hacking more boxes will you start recognizing services and know which ones are more likely targets than others.
 
 * FTP - 20, 21
 * SSH - 22
@@ -126,27 +126,29 @@ This is a pretty regular nmap scan and the output can look at bit daunting at fi
 
 You want to learn as much as possible about the target and its services. If you can figure out version numbers, operating system, specific protocols, then all this is highly relevant information for you as a hacker. As you can see from the results above, port 22, 53 and 80 are open. That means we have SSH \(22\), a DNS server \(53\) and a web server \(80\).
 
-**Conclusion:** you should now be able to discover open ports and services on your target
+**What now? -** Try to use `nmap` to discover open ports and services on your target
 
 ## **2 - Vulnerability analysis**
 
-**Goal: detect vulnerabilities in services or applications running on the target**
+**Goal** - Detect vulnerabilities in services or applications running on the target
 
-**Tools:** Google, searchsploit, CVE-details, Rapid7, Exploit-DB
+**Tools** - ****Google, searchsploit, CVE-details, Rapid7, Exploit-DB
 
 ### Finding vulnerabilities and exploits
 
-As an example, lets have a look at the very famous EternalBlue vulnerability and exploit.
+Now that we know what ports are open and what services these oprt signify, let's try to see if any of them have public vulnerabilities and/or exploits.
+
+As an example, lets have a look at the very famous EternalBlue vulnerability and exploit, named MS17-010. We will have a look at some common internet sources to learn more about this.
 
 #### CVE-Details
 
-This is what it looks like on CVE-details. As you can see there are direct links to Metasploit modules, which is a good sign. That means there are prepared exploits for it available for you to use.
+CVE is a system for categorizing and  scoring the severity of vunlerabliities. The website CVE-details provides us with this information. This is what the Eternalblue vulneraility looks like on CVE-details. As you can see it has quite a high CVSS score, which usually means it can be easily exploited. Also, there are direct links to Metasploit modules, which is a good sign. That means there are prepared exploits for it available for you to use. Metasploit is a framework that contains tool for very easy hacking of mahcines. We are getting into it very soon in this guide, so just hold on.
 
-![CVE-details for MS17-010](https://lh3.googleusercontent.com/v0mes2e-SCdJ45hLaJLpbbIykdTHGn2orgOJ58Xw9-IAmaBXD4cQgJgoLdyS5D_iZ5zddMD-Fl2mYpF-ORWIrV-JQgEDRuA4auKUoY3sNI5ljr6UgeyF67vPAwiehnl7OyUQXK2jUsM)
+![CVE-details for MS17-010, also known as EternalBlue](https://lh3.googleusercontent.com/v0mes2e-SCdJ45hLaJLpbbIykdTHGn2orgOJ58Xw9-IAmaBXD4cQgJgoLdyS5D_iZ5zddMD-Fl2mYpF-ORWIrV-JQgEDRuA4auKUoY3sNI5ljr6UgeyF67vPAwiehnl7OyUQXK2jUsM)
 
 #### Rapid7
 
-Here we can see how it looks on Rapid7's own site. They are the ones that write the Metasploit modules for thousands of exploits over the years, preparing them into a framework that is super easy to use. If you stumble upon an exploit and it has an associated Metasploit module you can rest assured its been tested and is legit.
+Rapid7 is the company that writes the Metasploit modules for thousands of exploits over the years, preparing them into a framework that is super easy to use. If you stumble upon an exploit and it has an associated Metasploit module you can rest assured its been tested and is legit. Here we can see how MS17-010 looks on Rapid7's own site. 
 
 ![Rapid7 Metasploit module for MS17-010](https://lh3.googleusercontent.com/e3inunv4NBLXBlcP-LgDfEuTSpmRWEAoPlnM08CiA-jHPIDVccVIf2Q8JkcxDQocKw6eiMUvkP5RLREzpPXt_DAcpsB6Dxv9rRU3pM9hvQnXrWP2kexxDNC7x5vTSl3Y1uV1b5RIOic)
 
@@ -169,7 +171,7 @@ Some thoughts:
 * Think like a user, then like a hacker
 * Bugs and misconfigurations
 
-**Conclusion:** find a vulnerability and an exploit that matches the service version you have identified.
+**What now?** - Try to find a vulnerability and an exploit that matches the service version you have identified.
 
 ## **3 - Exploitation**
 
