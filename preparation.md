@@ -90,7 +90,7 @@ We are now going to use VPN to connect to the HTB lab. With VPN it will be just 
 
 * Connect to HTB with `openvpn` `openvpn /root/Downloads/username.ovpn`
 
-![](.gitbook/assets/image%20%2817%29.png)
+![](.gitbook/assets/image%20%2818%29.png)
 
 * Leave the terminal window open, as this is what keeps the VPN connection alive. If you close it, your VPN connection will be shut down and you will lose access to the lab until you reconnect.
 * To verify, open a new terminal and type `ip addr`. You should see a `tun0` or `tap0` interface with an IP address in the 10.10.X.X/23 range. See number 3 in the screenshot below. If you don't have such an interface, something is not right.

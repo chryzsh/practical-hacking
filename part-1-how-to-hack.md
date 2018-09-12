@@ -10,7 +10,8 @@ description: >-
 
 * What is hacking?
 * Four steps involved in hacking machines
-* Actually hacking a machine!
+* Using Metasploit to hack
+* Hacking an actual machine!
 
 **Boxes on HTB that are suitable for this part**
 
@@ -142,42 +143,39 @@ As an example, lets have a look at the very famous EternalBlue vulnerability and
 
 #### CVE-Details
 
-CVE is a system for categorizing and  scoring the severity of vunlerabliities. The website CVE-details provides us with this information. This is what the Eternalblue vulneraility looks like on CVE-details. As you can see it has quite a high CVSS score, which usually means it can be easily exploited. Also, there are direct links to Metasploit modules, which is a good sign. That means there are prepared exploits for it available for you to use. Metasploit is a framework that contains tool for very easy hacking of mahcines. We are getting into it very soon in this guide, so just hold on.
+CVE is a system for categorizing and  scoring the severity of vunlerabliities. The website CVE-details provides us with this information. This is what the Eternalblue vulneraility looks like on CVE-details. As you can see it has quite a high CVSS score, which usually means it can be easily exploited. Also, there are direct links to Metasploit modules, which is a good sign. That means there are prepared exploits for it available for you to use. Metasploit is a framework that contains tool for very easy hacking of machines. We are getting into Metasploit very soon, so just keep readnig.
 
 ![CVE-details for MS17-010, also known as EternalBlue](https://lh3.googleusercontent.com/v0mes2e-SCdJ45hLaJLpbbIykdTHGn2orgOJ58Xw9-IAmaBXD4cQgJgoLdyS5D_iZ5zddMD-Fl2mYpF-ORWIrV-JQgEDRuA4auKUoY3sNI5ljr6UgeyF67vPAwiehnl7OyUQXK2jUsM)
 
 #### Rapid7
 
-Rapid7 is the company that writes the Metasploit modules for thousands of exploits over the years, preparing them into a framework that is super easy to use. If you stumble upon an exploit and it has an associated Metasploit module you can rest assured its been tested and is legit. Here we can see how MS17-010 looks on Rapid7's own site. 
+Rapid7 is the company that writes the Metasploit modules for thousands of exploits over the years, preparing them into a framework that is super easy to use. If you stumble upon an exploit and it has an associated Metasploit module you can rest assured its been tested and is legit. Here we can see how MS17-010 looks on Rapid7's own site. You may not understand the actual details of the exploit. Don't worry! Very few do, and you will soon discover it is possible to hack without understanding every sinlge detail.
 
 ![Rapid7 Metasploit module for MS17-010](https://lh3.googleusercontent.com/e3inunv4NBLXBlcP-LgDfEuTSpmRWEAoPlnM08CiA-jHPIDVccVIf2Q8JkcxDQocKw6eiMUvkP5RLREzpPXt_DAcpsB6Dxv9rRU3pM9hvQnXrWP2kexxDNC7x5vTSl3Y1uV1b5RIOic)
 
 #### Exploit-DB
 
-Let's go back to CVE-details and have a look at the manual exploit too. Sometimes, a Metasploit module is not necessarily the best choice and as a hacker you should strive to try exploiting boxes both manually and automatic.
+Let's go back to CVE-details and have a look at the manual exploit too. Sometimes, a Metasploit module is not necessarily the best choice and as a hacker you should strive to try exploiting boxes using both manual and automatic tools.
 
 ![Original exploit for MS17-010 on Exploit-DB](https://lh6.googleusercontent.com/hTd9RIUcQxb0qalEJG0R9ZoeLmM-i9-vKXrSB0dyUV1arnK1Q9oTOhkiiXrvHhn6L8eOyi_6WWmkhTxVR-iTZ4a7ozO8Ngq6QA2CziPfu5sYvw8tGlYOlOCrmTik1aPOqXFmwKxkW78)
 
-Here you can see the original exploit code. You can download and run it as you please. It has a lnink back to the original CVE on CVE-details and its been verified by the Exploit-DB team.
+Here you can see the original exploit code. You can download and run it as you please. It has a link back to the original CVE on CVE-details and it has been verified by the Exploit-DB team.
 
 #### Reviewing the information
 
-Finding vulnerabilities and exploits is in general quite easy, as most of it is pretty well documented online. A very simple approach is to simply plug the name of the service and its version into your favorite search engine with the word "exploit" or "vulnerability" behind and see if anything shows up. Then review that information.
+Finding vulnerabilities and exploits is generally easy, as most of it is pretty well documented online. It is extremely rare that we have to discover vulnerabiltiies ourselves. A very simple approach to discover vulnerabilities is to simply plug the name of the service and its version into your favorite search engine with the word "exploit" or "vulnerability" behind and see if anything shows up. Then review that information. See below for a simple example.
 
-Perhaps the most important thing when assessing whether a service or box is vulnerable to something is to correlate whether the service version matches. Very often you will see that certain vulnerabilites and exploits only work on specific versions, and if the version on your target does not match, well then you can still try it, but very often you areshit out of luck. On to the next service!
+![A simple example of a google search for a service with a version number](.gitbook/assets/image%20%2816%29.png)
 
-Some thoughts:
-
-* Think like a user, then like a hacker
-* Bugs and misconfigurations
+Perhaps the most important thing when assessing whether a service or box is vulnerable to something is to correlate whether the service version matches. Very often you will see that certain vulnerabilites and exploits only work on specific versions, and if the version on your target does not match, well then you can still try it, but often you will be shit out of luck. If that happens, you can try moving on to researching another service, or do more research to see if you can find something a bit rarer.
 
 **What now?** - Try to find a vulnerability and an exploit that matches the service version you have identified.
 
 ## **3 - Exploitation**
 
-**Goal:** Delivering a payload
+**Goal -** Delivering a payload
 
-**Tools:** Metasploit
+**Tools -** Metasploit
 
 In this step we have enumerated a target, we have found an open port with a vulnerable service and we're hoping to exploit it. That means our goal is executing commands on the target. So how do we get command execution or as we sometimes say, deliver a payload?
 
@@ -237,7 +235,7 @@ systemctl start postgresql msfdb initmsfconsole
 The above commands will start the postgresql service, initialize the database and start the console itself. However, this is only necessary the first time you start it. Usually you can open the Metasploit console with:
 
 ```text
-$ msfconsole
+msfconsole
 ```
 
 Inside the console you have a lot of options, but let's continue trying to exploit the EternalBlue exploit we looked at in the earlier steps.
@@ -260,7 +258,7 @@ Choosing the right exploit can be hard or easy - sometimes your searches will di
 
 **Modifying the exploits**
 
-So you've searched and found - but we're not ready yet. First we need to select our exploit, like so:
+So you've searched and found an exploit - but we're not ready yet. First we need to select our exploit, like so:
 
 ```text
 msf> use exploit/multi/samba/usermap_script

