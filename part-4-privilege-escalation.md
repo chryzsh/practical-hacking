@@ -22,8 +22,8 @@ description: How to escalate your privileges to gain administrative access on a 
 
 ### The goal
 
-* Linux -&gt; Becoming root, id 0
-* Windows -&gt; Becoming NT AUTHORITY\SYSTEM or Administrator
+* Linux - Becoming root, id 0
+* Windows - Becoming NT AUTHORITY\SYSTEM or Administrator
 
 What does it mean? Very often on Hackthebox and in real pentests we end up getting access to a system as a regular user or service account. This access always has a certain level of privilege on the system you are on. Most regular users are low privileged, that means they can't perform adminsitrative tasks, e.g. disable the antivirus, install new software or open ports. Our goal is to get the highest level of privilege possible. In Windows that is called Administrative privilege and in Linux its called root or super user privilege.
 
@@ -39,7 +39,7 @@ Try the obvious - Maybe the user is SYSTEM or is already part of the Administrat
 * `net localgroup administrator`
 * `net user "%username%"`
 
-![](.gitbook/assets/image%20%2810%29.png)
+![](.gitbook/assets/image%20%2812%29.png)
 
 ### Kernel exploits
 
@@ -166,7 +166,7 @@ cat /etc/issue`
 
 Here you can see how we can find local privilege escalation exploits from Exploit-DB. If you look in the path on the right hand pane you can see some of them have "local" in the path, which means they are local privilege escalation exploits, which are those we want. Those that have "dos" in the path are for denial of service attacks, which won't be relevant. Note that kernel exploits are prone to crashing the operating system, so be very careful with running these. Make attempts to exhaust other alternatives before turning to kernel exploits. 
 
-![](.gitbook/assets/image%20%2813%29.png)
+![](.gitbook/assets/image%20%2815%29.png)
 
 ### Check running services and installed applications
 

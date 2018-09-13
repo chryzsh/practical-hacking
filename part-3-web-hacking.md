@@ -73,7 +73,7 @@ For some boxes on HTB, we have to manually add a DNS entry. What does this mean?
 
 The screenshot shows the `/etc/hosts` file opened in the vim editor in the terminal. As you can see, a DNS entry for `lol.htb` has been added to the file. This is a fictional machine and IP for the purpose of this example.
 
-![](.gitbook/assets/image%20%2812%29.png)
+![](.gitbook/assets/image%20%2814%29.png)
 
 #### Zone transfer attack
 

@@ -47,11 +47,11 @@ First we prepare a payload with the correct file extension. The payload has to m
 * -f = format
 * -o = outputfile.extension
 
-![](.gitbook/assets/image%20%285%29.png)
+![](.gitbook/assets/image%20%287%29.png)
 
 We then use the `cat`command to print the contents of the file we generated. As you can see it's a bunch of mumbo jumbo code, but this is actually the _payload_, the code that will execute on the system to give you access.
 
-![](.gitbook/assets/image%20%2817%29.png)
+![](.gitbook/assets/image%20%2820%29.png)
 
 ### 2 - Setting up a listener
 
@@ -59,7 +59,7 @@ Now that we have prepared our payload, we open msfconsole, which we will use to 
 
 `msfconsole` 
 
-![](.gitbook/assets/image%20%284%29.png)
+![](.gitbook/assets/image%20%285%29.png)
 
 Select the handler module, which let's us set up a listener to "catch" our shell from the payload we created:
 
@@ -71,7 +71,7 @@ Set the correct payload \(needs to be identical to the payload we specified in `
 
 Now that our payload is selected we're going to do is to check what options we have to set. So we type `options`
 
-![](.gitbook/assets/image%20%288%29.png)
+![](.gitbook/assets/image%20%2810%29.png)
 
 As you can see below there are three required options that must be set to start the listener. We also note that two of the options are already set for us. Hence, the only thing we have to do is set the listener address \(lhost\) option. The lhost and lport options must match exactly those we set when we created our payload. We don't need to use the IP address can also just set lhost to tun0, which is the VPN-adapter used for connecting to HackTheBox.
 
@@ -81,7 +81,7 @@ As you can see below there are three required options that must be set to start 
 
 Once you have done this, type `options` to verify that you have set all the required options correctly.  Some of them are filled automatically, and some must be manually entered.
 
-![](.gitbook/assets/image%20%2814%29.png)
+![](.gitbook/assets/image%20%2816%29.png)
 
 We now start our listener, the `-j` option runs the listener in the background, so you can continue using msfconsole while it's listening for incoming sessions. Please also note that sometimes the listener will start on the wrong IP address, so much sure it's correct. Usually this problem is fixed by setting the lhost again, and running the exploit command again.
 
@@ -104,6 +104,16 @@ ctrl+z is the shortcut to background sessions.
 ### 3 - Running an exploit
 
 Ok, so we have prepared our payload and listener. Now we need to actually find a way to upload and execute this payload on our target. In Part 1 of this guide we used an already prepared exploit module in Metasploit to exploit the target, but this time we actually have to manually do the uploading and execution. We won't give away any HTB solutions, but if you try the machine Devel, you can try to figure out how this is going to work. Try to first find a way to upload the payload to the machine. Many services allow file uploads. You then need some way to execute it. When you are able to find a way, remember to have your listener ready so your payload, the reverse shell can call back to your listener.
+
+#### Uploading files to the target
+
+![File upload to target using FTP](.gitbook/assets/image%20%286%29.png)
+
+#### Executing payload on the target
+
+![Executing a payload on the target](.gitbook/assets/image.png)
+
+
 
 ## **Linux terminal tricks**
 
