@@ -103,13 +103,17 @@ ctrl+z is the shortcut to background sessions.
 
 ### 3 - Running an exploit
 
-Ok, so we have prepared our payload and listener. Now we need to actually find a way to upload and execute this payload on our target. In Part 1 of this guide we used an already prepared exploit module in Metasploit to exploit the target, but this time we actually have to manually do the uploading and execution. We won't give away any HTB solutions, but if you try the machine Devel, you can try to figure out how this is going to work. Try to first find a way to upload the payload to the machine. Many services allow file uploads. You then need some way to execute it. When you are able to find a way, remember to have your listener ready so your payload, the reverse shell can call back to your listener.
+Ok, so we have prepared our payload and listener. Now we need to actually find a way to upload and execute this payload on our target. In Part 1 of this guide we used an already prepared exploit module in Metasploit to exploit the target, but this time we actually have to manually do the uploading and execution. First, try to find a way to upload the payload to the machine. Many services like FTP \(port 21\) and SSH \(port 22\) allow file uploads. You then need some way to execute it. When you are able to find a way, remember to have your listener ready so your payload, the reverse shell can call back to your listener.
 
 #### Uploading files to the target
+
+The figure below shows a simple example where we use FTP to upload a payload to the server. In the green box in the bottoom left corner you can see we first navigate to the `/var/www/html` directory, which is a common directory for web servers on Linux systems. We then use the `put` command to upload a payload, in this case a PHP file since we are hoping to trigger it from the web server that runs PHP.
 
 ![File upload to target using FTP](.gitbook/assets/image%20%286%29.png)
 
 #### Executing payload on the target
+
+Now that we have successfully uploaded our payload, we need to execute it on the box. Maybe you remember from part 1 that this is called "code execution". It means we are executing arbitrary code on the target machine. As you can see in step 2 in the figure below, we navigate to the IP address of the target machine in the web browser and trigger the file we uploaded earlier. How does this work? Well, if you see the previous step above, we put the file in the web directory of the target, so the file is accessible on port 80, that is through HTTP. When we run this file in the browser, it executes the code it contains, the payload, which is a reverse shell. That makes it connect back to our machine and we get a reverse shell. We have now successfully compromised that machine.
 
 ![Executing a payload on the target](.gitbook/assets/image.png)
 
