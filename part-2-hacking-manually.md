@@ -117,60 +117,19 @@ Now that we have successfully uploaded our payload, we need to execute it on the
 
 ![Executing a payload on the target](.gitbook/assets/image.png)
 
+#### I'm not that lucky
 
+* What if no service appears to be vulnerable and I can't find any exploit?
+* What if there is no obvious way like uploading a file using FTP or SSH?
+* What if let's say only port 80 is open? 
 
-## **Linux terminal tricks**
+This will happen to you, often. So, how do we then get our payload on the target?
 
-For help with a command, type command and then
+We need to start exploring more manual ways of getting our payload on the target. Since port 80 is open it means the target is running a web server. So start by navigating to the IP address of the target in the web browser in Kali. Start looking around and take a good look at what the webapp is. Is is a shop of any kind, a wordpress blog, does it have a login portal? Explore the source code of the page.
 
-`$  -h or --help`
-
-For the Linux man\(ual\) pages:
-
-`$ man` - shows the man\(ual\) page for command line tools 
-
-`$ cat - display the content of files` 
-
-`$ less - navigate around files` 
-
-`$ grep - search for words` 
-
-`$ find and` 
-
-`$ locate - search for files` 
-
-`$ strings  - find text in files` 
-
-`$ ssh username@ - connect to a box using SSH (secure shell)`
-
-&lt; &gt; and &gt;&gt; is called redirection
-
-`$ echo “string” > file $ python -m SimpleHTTPServer 80 $ wget` 
-
-Installing things in Kali 
-
-`$ apt install` 
-
-## **Nmap tricks**
-
--A OS detection, version detection, script scanning, and traceroute. Gives a lot of useful info
-
--v verbose = lots of output 
-
--n skip DNS-lookup = can save you some time 
-
-`$ nmap  -A -n -v`
-
-`$ nmap --script nameOfScript ls -la /usr/share/nmap/scripts/*`
+Remember, the kinds of vulnerabilities we found earlier have been oon a lower level, that is vulenrabilities in the server itself. Now we are hunting for vulnerabilities that reside in the web application itself. This is a whole new game, so we have dedicated entire [Part 3](part-3-web-hacking.md) of this guide to it.
 
 ## **Credential abuse**
-
-\*\*\*\*
-
-Some thoughts:
-
-* Think like a user, then like a hacker
-* Bugs and misconfigurations
 
 Reuse of credentials \(usernames, passwords and keys\) and default credentials are the most common vulnerabilities, and you will see it everywhere. It's such an easy win if it works that you must never forget to at least try even though it may seem unlikely.
 
@@ -181,6 +140,66 @@ Reuse of credentials \(usernames, passwords and keys\) and default credentials a
 A fun exercise here can be to google your own home router make and model to see if you can find the default username and password. If you are the legal owner of the router, try to log in and see what happens!
 
 ![](https://lh3.googleusercontent.com/7mdc-kMI1RuZJ5sgYeDmlH26L2AOSULraoWBllzrqrivEGEYo9TpZFBCYL0cMbVTVIyhUbnhxT6go7Cp18kNmo9RPGX93Slky-CnhAHi9P1OlqgLCI7EDl5rCFp9IY-6fgr-bfm6ZWM)
+
+## **Linux terminal**
+
+For help with a command, type command and then
+
+`-h`  or `--help`
+
+`man <command>` - Displays the man\(ual\) page for command line tools
+
+`cat` - Display the contents of files
+
+`less <filename>` - view and navigate the contents of a file
+
+`grep` - search for words inside a file ``
+
+`find` - locate files and directories
+
+`locate <filename>` - locate a file
+
+`strings`  - find text in files 
+
+`ssh <username>@>ip-address>` - connect to a box using SSH \(secure shell\) on port 22
+
+`<` and `>` is called redirection. That means you can take the output of a command and write it to another file. See example below with `echo` and `>` If the `filename.txt` file does not exist it will be created.
+
+`echo “string” > filename.txt` 
+
+`python -m SimpleHTTPServer 80`  - Start a simple web server to host files on Kali
+
+`wget <ip-address>/<filename>` - Download a file from a server
+
+`apt install <name-of-program>` - Installing things in Kali 
+
+## **Nmap tricks**
+
+Let's refresh some of the nmap options we used earlier and take a look at some new ones.
+
+`-A` OS detection, version detection, script scanning, and traceroute. Gives a lot of useful info which will help you find vulnerabilities
+
+`-v` verbose, provides more output when scanning
+
+`-n` skip DNS resolve, saves some time scanning
+
+So the command becomes
+
+`nmap <ip-address> -A -n -v`
+
+### Nmap scripts
+
+The nmap scripting engine can be quite useful to improve the discovery of services. Kali comes with a lot of nmap scripts you can find here, using the `ls` command
+
+`ls -la /usr/share/nmap/scripts/*`
+
+Here is the command, but with a wildcard \(\*\) to look up all scripts that start with smb. Maybe you remember that SMB is the file sharing protocol for windows, which is great for hackers because it can be used for so much, and is a generally vulnerable protocol. The MS17-010 exploit that we had a quick look at in Part 1 was an SMB exploit.
+
+![](.gitbook/assets/image%20%2824%29.png)
+
+So let's try to use nmap with a script.
+
+`$ nmap <ip-address> --script <nameOfScript>` 
 
 ## **Privilege escalation**
 
@@ -225,14 +244,7 @@ Use the exploit suggester, in this case imagine we have a session 1 for our orig
 
 Then try the exploits suggested, same way we used our exploit suggester!
 
-**Credentials** 
-
-Credentials reuse and default credentials are the most common mistakes out there! Try defaults like:
-
-* admin/admin
-* admin/password
-
-Google default credentials for whatever you are looking at, combine different usernames and passwords you find! SSH keys might also be useful.
+\*\*\*\*
 
 ![](https://lh5.googleusercontent.com/P9kkB83xhsIMurqs2eIfvqmyUoUvl0SZ86SrZ1uwAXVSIfS4IltiCtg0xrdmy1TIWjcgxSnw95COoiz85FufBJ3UMHAApaunUnOTjULuUoksp2tmE92h-XWAI8dZH28mI72aKEZagL8)
 
