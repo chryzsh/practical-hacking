@@ -45,11 +45,11 @@ First we prepare a payload with the correct file extension. The payload has to m
 * -f = format
 * -o = outputfile.extension
 
-![](.gitbook/assets/image%20%287%29.png)
+![](.gitbook/assets/image%20%2815%29.png)
 
 We then use the `cat`command to print the contents of the file we generated. As you can see it's a bunch of mumbo jumbo code, but this is actually the _payload_, the code that will execute on the system to give you access.
 
-![](.gitbook/assets/image%20%2822%29.png)
+![](.gitbook/assets/image%20%2842%29.png)
 
 ### 2 - Setting up a listener
 
@@ -57,7 +57,7 @@ Now that we have prepared our payload, we open msfconsole, which we will use to 
 
 `msfconsole` 
 
-![](.gitbook/assets/image%20%285%29.png)
+![](.gitbook/assets/image%20%2813%29.png)
 
 Select the handler module, which let's us set up a listener to "catch" our shell from the payload we created:
 
@@ -69,7 +69,7 @@ Set the correct payload \(needs to be identical to the payload we specified in `
 
 Now that our payload is selected we're going to do is to check what options we have to set. So we type `options`
 
-![](.gitbook/assets/image%20%2810%29.png)
+![](.gitbook/assets/image%20%2818%29.png)
 
 As you can see below there are three required options that must be set to start the listener. We also note that two of the options are already set for us. Hence, the only thing we have to do is set the listener address \(lhost\) option. The lhost and lport options must match exactly those we set when we created our payload. We don't need to use the IP address can also just set lhost to tun0, which is the VPN-adapter used for connecting to HackTheBox.
 
@@ -79,7 +79,7 @@ As you can see below there are three required options that must be set to start 
 
 Once you have done this, type `options` to verify that you have set all the required options correctly.  Some of them are filled automatically, and some must be manually entered.
 
-![](.gitbook/assets/image%20%2817%29.png)
+![](.gitbook/assets/image%20%2834%29.png)
 
 We now start our listener, the `-j` option runs the listener in the background, so you can continue using msfconsole while it's listening for incoming sessions. Please also note that sometimes the listener will start on the wrong IP address, so much sure it's correct. Usually this problem is fixed by setting the lhost again, and running the exploit command again.
 
@@ -107,13 +107,13 @@ Ok, so we have prepared our payload and listener. Now we need to actually find a
 
 The figure below shows a simple example where we use FTP to upload a payload to the server. In the green box in the bottoom left corner you can see we first navigate to the `/var/www/html` directory, which is a common directory for web servers on Linux systems. We then use the `put` command to upload a payload, in this case a PHP file since we are hoping to trigger it from the web server that runs PHP.
 
-![File upload to target using FTP](.gitbook/assets/image%20%286%29.png)
+![File upload to target using FTP](.gitbook/assets/image%20%2814%29.png)
 
 #### Executing payload on the target
 
 Now that we have successfully uploaded our payload, we need to execute it on the box. Maybe you remember from part 1 that this is called "code execution". It means we are executing arbitrary code on the target machine. As you can see in step 2 in the figure below, we navigate to the IP address of the target machine in the web browser and trigger the file we uploaded earlier. How does this work? Well, if you see the previous step above, we put the file in the web directory of the target, so the file is accessible on port 80, that is through HTTP. When we run this file in the browser, it executes the code it contains, the payload, which is a reverse shell. That makes it connect back to our machine and we get a reverse shell. We have now successfully compromised that machine.
 
-![Executing a payload on the target](.gitbook/assets/image.png)
+![Executing a payload on the target](.gitbook/assets/image%20%282%29.png)
 
 #### I'm not that lucky
 
@@ -193,7 +193,7 @@ The nmap scripting engine can be quite useful to improve the discovery of servic
 
 Here is the command, but with a wildcard \(\*\) to look up all scripts that start with smb. Maybe you remember that SMB is the file sharing protocol for windows, which is great for hackers because it can be used for so much, and is a generally vulnerable protocol. The MS17-010 exploit that we had a quick look at in Part 1 was an SMB exploit.
 
-![](.gitbook/assets/image%20%2826%29.png)
+![](.gitbook/assets/image%20%2847%29.png)
 
 So let's try to use nmap with a script. It can also be wise to supply nmap with a port when you are scanning specific services. You can do this with the `-p` option followed by the port. See the example below using port 139 and 445 \(SMB runs on these\) for running a script that scans for the MS17-010 vulnerability from earlier in this guide.
 
@@ -239,7 +239,7 @@ If you have gotten a Meterpreter session on a windows box but you realize you ar
 
 When we get a meterpreter we see a message that says somethinfg like "Meterpreter session 1 opened" followed by us getting an interactive Meterpreter session in msfconsole. 
 
-![](.gitbook/assets/image%20%2819%29.png)
+![](.gitbook/assets/image%20%2838%29.png)
 
 This is obviously enough called a _session._ When we use the exploit suggester, we already have a session 1 set up. If we press ctrl-z we are asked if we want to background our current session. Press y to do that. You are not back in the regular msfconsole, while your session is kept a`l`ive in the background. You can now do the following:
 
@@ -249,7 +249,7 @@ This is obviously enough called a _session._ When we use the exploit suggester, 
 
 `exploit`
 
-![](.gitbook/assets/image%20%2815%29.png)
+![](.gitbook/assets/image%20%2831%29.png)
 
 Now that the suggester has done its job, you will probably get a couple of suggestions for exploits. There are ways to properly verify whether they will work, but that is out of scope for this guide. We recommend that you try each one of the exploits, by using the `use` command in msfconsole with the exploit path, setting the session to your current meterpreter session and runnign it by typing `exploit` as before. If you are lucky, it will spawn a new meterpreter session with elevated privileges. That means you have successfully escalated your privileges from a local user to a local administrator. You are now in full control of your target!
 

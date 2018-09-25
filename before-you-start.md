@@ -24,7 +24,7 @@ You are of course free to take notes however you like!
 
 I've been using OneNote since the beginning, organizing my files like this:
 
-![Example OneNote layout](.gitbook/assets/image%20%2811%29.png)
+![Example OneNote layout](.gitbook/assets/image%20%2821%29.png)
 
 It's also a good idea to create a folder for HTB and making a new folder for each machine, putting all the files you use \(scripts, shells, etc\) in that folder, to keep it organized. If you start out being organized it'll help you down the road. You'll always go back to your notes and scripts!
 

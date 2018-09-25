@@ -43,7 +43,7 @@ Try the obvious - Maybe the user is SYSTEM or is already part of the Administrat
 * `net localgroup administrator`
 * `net user "%username%"`
 
-![](.gitbook/assets/image%20%2812%29.png)
+![](.gitbook/assets/image%20%2822%29.png)
 
 ### Kernel exploits
 
@@ -170,7 +170,7 @@ cat /etc/issue`
 
 Here you can see how we can find local privilege escalation exploits from Exploit-DB. If you look in the path on the right hand pane you can see some of them have "local" in the path, which means they are local privilege escalation exploits, which are those we want. Those that have "dos" in the path are for denial of service attacks, which won't be relevant. Note that kernel exploits are prone to crashing the operating system, so be very careful with running these. Make attempts to exhaust other alternatives before turning to kernel exploits. 
 
-![](.gitbook/assets/image%20%2816%29.png)
+![](.gitbook/assets/image%20%2832%29.png)
 
 ### Check running services and installed applications
 
