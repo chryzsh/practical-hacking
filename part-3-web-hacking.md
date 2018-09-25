@@ -17,7 +17,11 @@ description: >-
 
 * CronOS - 10.10.10.13
 * Shocker - 10.10.10.56
-* Bonus - Beep, Europa, Bank, Tenten, Nineveh
+
+**Bonus boxes**
+
+* Beep
+* Valentine
 
 ## **General web concepts**
 

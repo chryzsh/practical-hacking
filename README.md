@@ -76,7 +76,7 @@ Goes deeper into the subject of escalating privileges.
 
 
 
-![](.gitbook/assets/image%20%2818%29.png)
+![](.gitbook/assets/image%20%2820%29.png)
 
 {% hint style="warning" %}
 This is not 'Nam, this is hacking. There are rules.
@@ -87,4 +87,8 @@ Don't try to hack your employer, newspaper, school or anyone else. Don't launch 
 
 Do however, practice the things you learn in this course in a fantastic lab environment such as Hackthebox.
 {% endhint %}
+
+
+
+![](https://lh3.googleusercontent.com/UQNc-yalPl6TPNKbxfVFDBfjsHmILD38J5FaWfcdgrlimdO_2u2C98npBMSuxw0uRYP7DIdLPxS0hosnCI9ZwVeT9APu6ivvWT_1T-h2SPfNOwOKKre74f2u30R8aEZQPrLUns5n1Sk)
 

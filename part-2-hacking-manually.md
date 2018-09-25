@@ -22,10 +22,8 @@ description: >-
 
 **Other relevant boxes**
 
-* Popcorn
-* Blocky
-* Lazy
-* Bastard
+* * Blocky
+* Optimum
 
 ## **Hacking manually with the Metasploit framework**
 
@@ -51,7 +49,7 @@ First we prepare a payload with the correct file extension. The payload has to m
 
 We then use the `cat`command to print the contents of the file we generated. As you can see it's a bunch of mumbo jumbo code, but this is actually the _payload_, the code that will execute on the system to give you access.
 
-![](.gitbook/assets/image%20%2820%29.png)
+![](.gitbook/assets/image%20%2822%29.png)
 
 ### 2 - Setting up a listener
 
@@ -81,7 +79,7 @@ As you can see below there are three required options that must be set to start 
 
 Once you have done this, type `options` to verify that you have set all the required options correctly.  Some of them are filled automatically, and some must be manually entered.
 
-![](.gitbook/assets/image%20%2816%29.png)
+![](.gitbook/assets/image%20%2817%29.png)
 
 We now start our listener, the `-j` option runs the listener in the background, so you can continue using msfconsole while it's listening for incoming sessions. Please also note that sometimes the listener will start on the wrong IP address, so much sure it's correct. Usually this problem is fixed by setting the lhost again, and running the exploit command again.
 
@@ -195,15 +193,19 @@ The nmap scripting engine can be quite useful to improve the discovery of servic
 
 Here is the command, but with a wildcard \(\*\) to look up all scripts that start with smb. Maybe you remember that SMB is the file sharing protocol for windows, which is great for hackers because it can be used for so much, and is a generally vulnerable protocol. The MS17-010 exploit that we had a quick look at in Part 1 was an SMB exploit.
 
-![](.gitbook/assets/image%20%2824%29.png)
+![](.gitbook/assets/image%20%2826%29.png)
 
-So let's try to use nmap with a script.
+So let's try to use nmap with a script. It can also be wise to supply nmap with a port when you are scanning specific services. You can do this with the `-p` option followed by the port. See the example below using port 139 and 445 \(SMB runs on these\) for running a script that scans for the MS17-010 vulnerability from earlier in this guide.
 
-`$ nmap <ip-address> --script <nameOfScript>` 
+`nmap <ip-address> --script <nameOfScript>` 
+
+`nmap 10.10.10.10 --script smb-vuln-ms17-010 -p 139,445`
 
 ## **Privilege escalation**
 
-In the beginning of your hacking journey, privilege escalation can be very daunting. Because you don't really know exactly what you're looking for. That's why we have the entire fourth part of this guide dedicated to breaking it down into easy steps. However, to make sure you don't get stuck in the mud, we have included some of the basics which might help.
+In the beginning of your hacking journey, privilege escalation can be very daunting. Because you don't really know exactly what you're looking for. That's why we have the entire [fourth part of this guide](part-4-privilege-escalation.md) dedicated to breaking it down into simple steps. However, to make sure you don't get stuck in the mud at this point, we have included some of the basics which might help. You will probably see these tricks repeated with further detail in part four.
+
+### Linux
 
 For linux: [https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/](https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/)
 
@@ -229,12 +231,17 @@ Confidential information and users that you can check.
 
 `ls -ahlR /home/`
 
-For Windows: 
+### Windows
 
-* [https://www.rapid7.com/db/modules/post/multi/recon/local\_exploit\_suggester](https://www.rapid7.com/db/modules/post/multi/recon/local_exploit_suggester)
-* [https://www.sploitspren.com/2018-01-26-Windows-Privilege-Escalation-Guide/](https://www.sploitspren.com/2018-01-26-Windows-Privilege-Escalation-Guide/)
+#### Metasploit exploit suggester
 
-Use the exploit suggester, in this case imagine we have a session 1 for our original payload:
+If you have gotten a Meterpreter session on a windows box but you realize you are not an administrator you have to escalate your privileges. Sometimes, boxes are not properly patched and you can use local exploits that exploit vulnerabilities in the Windows kernel to escalate. Metasploit has several post modules for this purpose. Post means they can only be used after you have compromised the machine and gotten a Meterpreter or shel. However, we need to find such exploits and the exploit suggester automatically searches for exploits that may allow you to escalate privileges.
+
+When we get a meterpreter we see a message that says somethinfg like "Meterpreter session 1 opened" followed by us getting an interactive Meterpreter session in msfconsole. 
+
+![](.gitbook/assets/image%20%2819%29.png)
+
+This is obviously enough called a _session._ When we use the exploit suggester, we already have a session 1 set up. If we press ctrl-z we are asked if we want to background our current session. Press y to do that. You are not back in the regular msfconsole, while your session is kept a`l`ive in the background. You can now do the following:
 
 `use post/multi/recon/local_exploit_suggester`
 
@@ -242,11 +249,12 @@ Use the exploit suggester, in this case imagine we have a session 1 for our orig
 
 `exploit`
 
-Then try the exploits suggested, same way we used our exploit suggester!
+![](.gitbook/assets/image%20%2815%29.png)
 
-\*\*\*\*
+Now that the suggester has done its job, you will probably get a couple of suggestions for exploits. There are ways to properly verify whether they will work, but that is out of scope for this guide. We recommend that you try each one of the exploits, by using the `use` command in msfconsole with the exploit path, setting the session to your current meterpreter session and runnign it by typing `exploit` as before. If you are lucky, it will spawn a new meterpreter session with elevated privileges. That means you have successfully escalated your privileges from a local user to a local administrator. You are now in full control of your target!
+
+* [https://www.rapid7.com/db/modules/post/multi/recon/local\_exploit\_suggester](https://www.rapid7.com/db/modules/post/multi/recon/local_exploit_suggester)
+* [https://www.sploitspren.com/2018-01-26-Windows-Privilege-Escalation-Guide/](https://www.sploitspren.com/2018-01-26-Windows-Privilege-Escalation-Guide/)
 
 ![](https://lh5.googleusercontent.com/P9kkB83xhsIMurqs2eIfvqmyUoUvl0SZ86SrZ1uwAXVSIfS4IltiCtg0xrdmy1TIWjcgxSnw95COoiz85FufBJ3UMHAApaunUnOTjULuUoksp2tmE92h-XWAI8dZH28mI72aKEZagL8)
-
-Good luck!
 

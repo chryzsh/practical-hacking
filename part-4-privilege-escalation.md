@@ -12,7 +12,11 @@ description: How to escalate your privileges to gain administrative access on a 
 
 **Boxes that are suitable for this part**
 
-* Nibbles 10.10.10.75
+* Nibbles - 10.10.10.75
+* Bashed - 10.10.10.68
+
+**Other boxes**
+
 * Celestial 10.10.10.85
 * Jerry 10.10.10.95
 
@@ -166,7 +170,7 @@ cat /etc/issue`
 
 Here you can see how we can find local privilege escalation exploits from Exploit-DB. If you look in the path on the right hand pane you can see some of them have "local" in the path, which means they are local privilege escalation exploits, which are those we want. Those that have "dos" in the path are for denial of service attacks, which won't be relevant. Note that kernel exploits are prone to crashing the operating system, so be very careful with running these. Make attempts to exhaust other alternatives before turning to kernel exploits. 
 
-![](.gitbook/assets/image%20%2815%29.png)
+![](.gitbook/assets/image%20%2816%29.png)
 
 ### Check running services and installed applications
 

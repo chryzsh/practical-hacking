@@ -16,14 +16,14 @@ description: >-
 **Boxes on HTB that are suitable for this part**
 
 * Lame - 10.10.10.3
-* Legacy - 10.10.10.4
 * Blue - 10.10.10.40
 
 **If you are looking for a challenge**
 
-* Optimum
 * Granny
 * Grandpa
+* Legacy
+* Optimum
 
 ## Using Hackthebox
 
@@ -165,7 +165,7 @@ Here you can see the original exploit code. You can download and run it as you p
 
 Finding vulnerabilities and exploits is generally easy, as most of it is pretty well documented online. It is extremely rare that we have to discover vulnerabiltiies ourselves. A very simple approach to discover vulnerabilities is to simply plug the name of the service and its version into your favorite search engine with the word "exploit" or "vulnerability" behind and see if anything shows up. Then review that information. See below for a simple example.
 
-![A simple example of a google search for a service with a version number](.gitbook/assets/image%20%2819%29.png)
+![A simple example of a google search for a service with a version number](.gitbook/assets/image%20%2821%29.png)
 
 Perhaps the most important thing when assessing whether a service or box is vulnerable to something is to correlate whether the service version matches. Very often you will see that certain vulnerabilites and exploits only work on specific versions, and if the version on your target does not match, well then you can still try it, but often you will be shit out of luck. If that happens, you can try moving on to researching another service, or do more research to see if you can find something a bit rarer.
 
@@ -211,7 +211,7 @@ nc -lvp 4444
 
 The -l is for listener, -v is for verbose and the -p is for port. Consequently this command starts a listener on your Kali machine on port 4444. Whenever the payload tries to connect to your IP address on this port with `nc` or a payload, it will "catch" the shell and you will get a terminal on the target. From there you are able to execute commands on the target. See the figure below for a basic example on how this works.
 
-![Basic reverse shell and listener example](.gitbook/assets/image%20%2817%29.png)
+![Basic reverse shell and listener example](.gitbook/assets/image%20%2818%29.png)
 
 
 
