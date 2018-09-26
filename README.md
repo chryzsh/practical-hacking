@@ -76,7 +76,7 @@ Goes deeper into the subject of escalating privileges.
 
 
 
-![](.gitbook/assets/image%20%2839%29.png)
+![](.gitbook/assets/image%20%2855%29.png)
 
 {% hint style="warning" %}
 This is not 'Nam, this is hacking. There are rules.

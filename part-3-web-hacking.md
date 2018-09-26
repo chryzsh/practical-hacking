@@ -49,7 +49,7 @@ SQL injection is one of the most common web hacking techniques. It usually occur
 
 Let's take an example. We have this login field, asking us to give our UserId, but instead of entering our UserId we put in some jazz.
 
-![](.gitbook/assets/image%20%2811%29.png)
+![](.gitbook/assets/image%20%2815%29.png)
 
 What happens then, is that the proggram takes that input and put it into a statement that asks the database. The statement becomes:
 
@@ -71,9 +71,36 @@ A file inclusion is when we are able to access arbitrary files on the file syste
 * Local file inclusion \(LFI\) - read files on the remote file system
 * Remote file inclsuion \(RFI\) - upload files to the file system 
 
-LFI happens often in PHP. Example: [`http://10.10.10.100/file.php?path=../../etc/passwd`](http://10.10.10.100/file.php?path=../../etc/passwd)
+LFI happens often in PHP and PHP based sites. Let's take an example from a simple website I've set up. This is at `index.php` which is basically the main part of the site. What we are going to explore is whether there are any parameters that have an LFI vulnerability.
 
-Because the `path` parameter in the`file.php` code is not properly handled, we are now able to read arbitrary files on the filesystem, for example the passwd file whic contains usernames.
+![](.gitbook/assets/image%20%2854%29.png)
+
+ Looks like a reagular site. So let's just add a `?page` to the URL and see what happens. You may now ask, "how did you know it was page?", which we will get back to how to find later in the course.
+
+![](.gitbook/assets/image%20%2824%29.png)
+
+What is going on down there? Some nagging about `include php` and some error stuff. In PHP, the script is going to take a user supplied value and use it as a path to include a file, the value provided can however be modified. So instead of providing PHP with the file it expects, we say we want to include another file from the local file system. So what kind of file do we retrieve and how do we know where its located? The answer is quitte smiple. We go for a file we know the path too and that is always present on the local file system. Since we can defer that this is a Linux from the `/var/www/index.php` path in the error message, we chose to get the **`/etc/passwd`** file which contains usernames.
+
+![](.gitbook/assets/image.png)
+
+Huh? Why doesn't this work? Well, since the index.php file already resides in the `/var/www/` directory, we are now essentially trying to go to /var/www/etc/passwd which naturlaly doesn't exist. So we need to go back a few steps so we end up in the right directory. Maybe you remember from the Linux journey course that two dots `..` is like going backwards in the directories of the Linux file system.
+
+![](.gitbook/assets/image%20%2842%29.png)
+
+Ok, you are probably getting annoyed now. Why do you keep showing us things that apparently doesn't work? Well, the answer is on the screen. If you read the error message closely you'll see that we now are trying to read a file `/etc/password.php` but the passwd file does not have a `php` file extension, so we need some way to remove it from our query. We use a little trick called null byte for this. It's a bug in older versions of PHP that allows to get rid of it. The null byte is url-encoded as `%00` so let's give this a shot.
+
+![](.gitbook/assets/image%20%285%29.png)
+
+Finally! We are able to read the `passwd` file from the local file system of our target machine. As you can see the output is a bit jumbled, so we copy tyhis out to our notes and format it neatly.
+
+Now we want you to try and imagine two things
+
+1. What could i use these usernames for?
+2. What other known files could be useful to retrieve?
+
+**Summary for file inclusions**
+
+Because the `page` parameter in the`index.php` code is not properly handled, we are now able to read arbitrary files on the filesystem, for example the `passwd` file which contains usernames.  This is why it's so important to have knowledge of the Linux file system.
 
 RFI gives you LFI, but LFI doesn’t necessarily give you RFI. If you think you have found an LFI you can try to verify it with [fimap](https://tools.kali.org/web-applications/fimap).
 
@@ -89,7 +116,7 @@ For some boxes on HTB, we have to manually add a DNS entry. What does this mean?
 
 The screenshot shows the `/etc/hosts` file opened in the vim editor in the terminal. As you can see, a DNS entry for `lol.htb` has been added to the file. This is a fictional machine and IP for the purpose of this example.
 
-![](.gitbook/assets/image%20%2827%29.png)
+![](.gitbook/assets/image%20%2837%29.png)
 
 #### Zone transfer attack
 
@@ -119,7 +146,7 @@ Burp Suite is a professional tool for web hacking. It contains a ton of features
 
 A proxy is when you route network traffic somewhere else Burp captures the requests that we send to a website, and allows us to manipulate them in many ways In Firefox we can adjust proxy settings This is a bit clunky so the addon FoxyProxy is recommended. Install the Foxyproxy browser extension in [Firefox ](https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard/)or Chromium and add a new proxy with IP 127.0.0.1 and port 8080. This will send all the requests from your web browser into Burp. This is the standard proxy for Burp, so that your web requests will be sent to Burp, where you work with them in the interface.
 
-![What Burp looks like. Not much going on here ... yet](.gitbook/assets/image%20%2836%29.png)
+![What Burp looks like. Not much going on here ... yet](.gitbook/assets/image%20%2849%29.png)
 
 Let's go through some of the features of Burp Suite.
 
@@ -127,27 +154,27 @@ Let's go through some of the features of Burp Suite.
 
 Here, I have set up the OWASP Juice Shop for the purpose of this demo. It's a little website running locally on my machine, hence the URL shows localhost on port 3000. As you can see, I have clicked the "intercept is on" button and it's now toggled on. That means every request in the web browser is intercepted in burped and the web application hangs until i decide what to do. If we want, we can now edit any parameter in the request, forward or drop it.
 
-![A request has been intercepted](.gitbook/assets/image%20%2841%29.png)
+![A request has been intercepted](.gitbook/assets/image%20%2857%29.png)
 
 **Repeater - repeating requests**
 
 Same as proxy but you can repeat requests as many times as you want. Useful to try a web request numerous times and make changes. Below I have right clicked in the interface and selected "Send to Repeater". The Repeater tab flashes in orange.
 
-![](.gitbook/assets/image%20%2820%29.png)
+![](.gitbook/assets/image%20%2827%29.png)
 
 Now I have gone to the Repeater tab and pressed "Go". It basically does exactly the same as "forward" in Proxy, but I can repeat it as many times as I want and make necessary adjusment. Very useful if you're trying to make some little element of your payload just right, like an SQL injection.
 
-![](.gitbook/assets/image%20%2835%29.png)
+![](.gitbook/assets/image%20%2848%29.png)
 
 **Spider - find hidden directories and files**
 
 If we go to the target website and start clicking around, we should soon see that the Target tab in Burp starts filling up with different kinds of files and directories. This is basically called Spidering, a process of manually discovering content. This process can be automated to a certain extent with Burp.
 
-![We&apos;ve discovered a lot of stuff here!](.gitbook/assets/image.png)
+![We&apos;ve discovered a lot of stuff here!](.gitbook/assets/image%20%281%29.png)
 
 Now, we can right click on the URL and select "Spider this host". This will start an automatic scanning for directories and files, even recursively. Check the Spider tab for progress and to start and stop the spider.
 
-![](.gitbook/assets/image%20%2829%29.png)
+![](.gitbook/assets/image%20%2839%29.png)
 
 
 
@@ -157,13 +184,13 @@ The intruder is what you use to break the door in. It's the hammer of the Burp S
 
 Below I have toggled the interceptor on, and as you can seee my test username and password has been submitted. Remember, the request hasn't been sent yet, so hold your horses. Right click and press the "Send to Intruder" button. The Intruder tab starts flashing orange.
 
-![](.gitbook/assets/image%20%281%29.png)
+![](.gitbook/assets/image%20%282%29.png)
 
 If you navigate to the Positions tab, you'll see the request from before. Click the Clear button on the right hand to clear the markers that Burp set automatically. What we want to try are different passwords. At the moment I'm just going to assume that my test user is valid, which it probably is not.
 
-![](.gitbook/assets/image%20%286%29.png)
+![](.gitbook/assets/image%20%288%29.png)
 
-![I&apos;m ready to brute force the shit out of this password](.gitbook/assets/image%20%2828%29.png)
+![I&apos;m ready to brute force the shit out of this password](.gitbook/assets/image%20%2838%29.png)
 
 Now we click the Payloads tab, because we need to specify a wordlist we want to brute force with. That means we are going to replace where I have written "password" with a ton of different common passwords, to see if any of them are valid. Burp has some built in lists that can be selected from the dropdown list, but Kali also has a lot of good wordlists in the`/usr/share/wordlists` directory that you can try. For now, let's just select a Burp list.
 
@@ -171,11 +198,11 @@ Now we click the Payloads tab, because we need to specify a wordlist we want to 
 One of the most common lists for brute force attacks is called `rockyou`. It contains 14+ million passwords and is built into Kali. However, brute forcing with such a list will take ages. You can find it at`/usr/share/wordlists/rockyou.txt`
 {% endhint %}
 
-![Ready to hack](.gitbook/assets/image%20%288%29.png)
+![Ready to hack](.gitbook/assets/image%20%2810%29.png)
 
 Now I am going to click "Start attack" and it will start brute forcing this password. As you can see, I will try 3424 different passwords. Quite intensive!
 
-![](.gitbook/assets/image%20%285%29.png)
+![](.gitbook/assets/image%20%287%29.png)
 
 Looks like I'm not having so much luck on the first 723 guesses. How can I tell? Well, the status code should not be in the 400-category as these are commonly errors like "401 Unathorized" as you can see in the Response tab. I would want to get something like "200 OK" which means the request was fulfilled.
 
@@ -221,23 +248,45 @@ This is pretty much the route we take when working with databases and injections
 
 #### **How to exploit an SQL injection with SQLMap** 
 
-Capture a request with Burp and copypaste it. Save it to a file `r.txt` Then execute sqlmap by pointing to the request. It will then automatically start injecting where it deems fit.
+Capture a request with Burp and copypaste it. Save it to a file `r.txt` Then execute sqlmap by pointing to the request. It will then automatically start injecting where it deems fit. Here I am going to use an example site I have set up. As you can see I have a PHP file that takes a parameter `id`. Now instead of typing just `1`, I have added a `'` at the end. What happens is that the SQLstatement is manipulated by this `'` and we get an SQL error from the backend server. This indicated that an SQL injection may be possible.
+
+![](.gitbook/assets/image%20%2829%29.png)
+
+Let's capture the request with Burp and save it with the filename `request.txt`
+
+![](.gitbook/assets/image%20%2851%29.png)
+
+Let's fire up our terminal and start sqlmap to see if it detects the potential SQL injection.
 
 `sqlmap -r request.txt`
 
-If it finds a parameter to inject, you will most likely be told so and SQLmap will reveal what kind of DBMS. From there you want to continue down the hierarchy indicated above. So next we specify the DBMS we got and say that we want to extract the databases:
+If it finds a parameter to inject, you will most likely be told so and SQLmap will reveal what kind of DBMS is present. Here we can see it very quickly found that the `id` parameter was injectable and that the DBMS is `MySQL`.
 
- `sqlmap -r r.txt --dbms=mysql --dbs`
+![](.gitbook/assets/image%20%2859%29.png)
 
-Fine! We got a database we want to extract. Let's specify that, and that we want to extract the tables:
+Now we are going to continue down the hierarchy indicated above. So just cancel this with `Ctrl+C`. We now specify that the DBMS is MySql and say that we want to extract the databases using the --dbs parameter. This could take some time, because it is trying a lot of payloads. 
 
-`sqlmap -r r.txt--dbms=mysql -D corporate --tables`
+ `sqlmap -r request.txt --dbms=mysql --dbs`
 
-And when we have a table, let's just dump all the content of that table.
+![](.gitbook/assets/image%20%2852%29.png)
 
-`sqlmap -r r.txt --dbms=mysql -D nameofdatabase -T users --dump`
+You will ocasionally get prompted for input. The capital N means it's the default option, so you can just click enter to move on. The default selections in SQLmap are usually sensible.
 
-**We should end up with a complete dump of all the columns and rows in the** `users` **table in the** `corporate` **database that is hosted on a** `mysql` **dbms. And we barely did anything but type some lines and press enter! Magic!**
+Now look in the screenshot above. We see that sqlmap automatically used some more advanced payloads to retrieve the name of two databases. The `information_schema` db is a default db in Mysql, so let's focus on the one called `photoblog`. Let's specify that we want to extract the tables from it.
+
+`sqlmap -r request.txt--dbms=mysql -D photoblog --tables`
+
+![](.gitbook/assets/image%20%2828%29.png)
+
+And we just keep digging ourselves down this rabbit hole. As you can see, we have three tables in the database and one of them is called users. Let's just **dump** all the content of that table with the `--dump` option.
+
+`sqlmap -r request.txt --dbms=mysql -D photoblog -T users --dump`
+
+![](.gitbook/assets/image%20%2813%29.png)
+
+To be nice I have censored the hashed password of the admin, but as you can see we end up with a complete dump of all the columns and rows in the `users` table in the `photoblog`database that is hosted on a `mysql` dbms. And we barely did anything but type some lines and press enter! Do you know realize the power of Sqlmap? Magic!
+
+![](.gitbook/assets/image%20%2814%29.png)
 
 
 

@@ -39,7 +39,7 @@ For each machine there is a flag that proves you have gained access to the machi
 
 After you have successfully compromised and gained access to a box, and found the flags, they must be submitted by pressing the two icons on the right in the machines panel on HTB. Flags provde that you completed the box and for each flag you get a certain amount of points, depending on the difficulty of the machine. Some boxes are built in such a way that compromising them might give you administrative access straight away. If so, you can grab both flags, because with administrative privileges we have full access to everything on the machine. 
 
-![The two rightmost buttons on each machine opens a flag submission panel](.gitbook/assets/image%20%289%29.png)
+![The two rightmost buttons on each machine opens a flag submission panel](.gitbook/assets/image%20%2811%29.png)
 
 Depending on whether the operating system is Windows or Linux, the flags on the machines are usually located in the places listed below. The `<username>` is the username of theu ser on the machine, which  is different on all the boxes. The Administrator user is usually not renamed, but it can happen that flaggs are hidden, so beware. 
 
@@ -165,7 +165,7 @@ Here you can see the original exploit code. You can download and run it as you p
 
 Finding vulnerabilities and exploits is generally easy, as most of it is pretty well documented online. It is extremely rare that we have to discover vulnerabiltiies ourselves. A very simple approach to discover vulnerabilities is to simply plug the name of the service and its version into your favorite search engine with the word "exploit" or "vulnerability" behind and see if anything shows up. Then review that information. See below for a simple example.
 
-![A simple example of a google search for a service with a version number](.gitbook/assets/image%20%2840%29.png)
+![A simple example of a google search for a service with a version number](.gitbook/assets/image%20%2856%29.png)
 
 Perhaps the most important thing when assessing whether a service or box is vulnerable to something is to correlate whether the service version matches. Very often you will see that certain vulnerabilites and exploits only work on specific versions, and if the version on your target does not match, well then you can still try it, but often you will be shit out of luck. If that happens, you can try moving on to researching another service, or do more research to see if you can find something a bit rarer.
 
@@ -211,7 +211,7 @@ nc -lvp 4444
 
 The -l is for listener, -v is for verbose and the -p is for port. Consequently this command starts a listener on your Kali machine on port 4444. Whenever the payload tries to connect to your IP address on this port with `nc` or a payload, it will "catch" the shell and you will get a terminal on the target. From there you are able to execute commands on the target. See the figure below for a basic example on how this works.
 
-![Basic reverse shell and listener example](.gitbook/assets/image%20%2837%29.png)
+![Basic reverse shell and listener example](.gitbook/assets/image%20%2850%29.png)
 
 
 
