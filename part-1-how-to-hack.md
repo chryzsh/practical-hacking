@@ -231,7 +231,9 @@ This will start loading the Metasploit console with its huge library of differen
 To start the tool type the following into your terminal:
 
 ```text
-systemctl start postgresql msfdb initmsfconsole
+systemctl start postgresql 
+msfdb init
+msfconsole
 ```
 
 The above commands will start the postgresql service, initialize the database and start the console itself. However, this is only necessary the first time you start it. Usually you can open the Metasploit console with:
