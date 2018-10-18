@@ -29,13 +29,13 @@ description: How to escalate your privileges to gain administrative access on a 
 * Linux - Becoming root, id 0
 * Windows - Becoming NT AUTHORITY\SYSTEM or Administrator
 
-What does it mean? Very often on Hackthebox and in real pentests we end up getting access to a system as a regular user or service account. This access always has a certain level of privilege on the system you are on. Most regular users are low privileged, that means they can't perform adminsitrative tasks, e.g. disable the antivirus, install new software or open ports. Our goal is to get the highest level of privilege possible. In Windows that is called Administrative privilege and in Linux its called root or super user privilege.
+What does it mean? Very often on Hackthebox and in real pentests we end up getting access to a system as a regular user or service account. This access always has a certain level of privilege on the system you are on. Most regular users are low privileged, that means they can't perform adminsitrative tasks, e.g. disable the antivirus, install new software, or open ports. Our goal is to get the highest level of privilege possible. In Windows that is called Administrative privilege and in Linux its called root or super user privilege.
 
 ## **Windows privilege escalation**
 
 ### Credential reuse
 
-Sometimes a user that you have the credentials for is also thean administrator on the system, but uses the same password for both accounts. So never forget to try passwords when you have the chance. Just don't overdo it so you trigger some lockout mechanism and get detected.
+Sometimes a user that you have the credentials for is also the administrator on the system, but uses the same password for both accounts. So never forget to try passwords when you have the chance. Just don't overdo it so you trigger some lockout mechanism and get detected.
 
 Try the obvious - Maybe the user is SYSTEM or is already part of the Administrator group. As you can see from the output of the three commands below the username is _hacker_, he is part of the group _administrators._ In this case, a privilege escalation is not necessary because we are already in the administrators group!
 
@@ -79,11 +79,11 @@ There are several known techniques to escalate from service accounts to SYSTEM. 
 
 What is sudo? 
 
-`sudo` is a command you will probably see a lot in the Linux world. It allows regular users to perform certain tasks as root user. This is useful for performing administrative tasks without switching to the root user all th etime. It requires that the user has been added to the sudoers group. Of course we should abuse this. Try `sudo -l` to find the commands the user you currently can run as sudo.
+`sudo` is a command you will probably see a lot in the Linux world. It allows regular users to perform certain tasks as root user. This is useful for performing administrative tasks without switching to the root user all the time. It requires that the user has been added to the sudoers group. Of course we should abuse this. Try `sudo -l` to find the commands the user you currently can run as sudo.
 
 ### Linux permissions
 
-In Linux, everything is a file All files have owners and access permissions We use that to our advantage
+In Linux, everything is a file. All files have owners and access permissions and we use that to our advantage
 
 `ls -l Desktop/`
 
