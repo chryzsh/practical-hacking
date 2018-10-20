@@ -52,7 +52,7 @@ To get you started we have broken this guide into four major parts and some prep
 
 ### Preparation
 
-Get's you set up with a Kali Linux virtual machine for hacking and registered on Hackthebox, the platform we will use to practice our hacking skills.
+Gets you set up with a Kali Linux virtual machine for hacking and registered on Hackthebox, the platform we will use to practice our hacking skills.
 
 ### Before you start
 
@@ -83,7 +83,7 @@ This is not 'Nam, this is hacking. There are rules.
 
 _Don't be a dumbass!_
 
-Don't try to hack your employer, newspaper, school or anyone else. Don't launch any random tools you find on the internet. Don't execute commands you don't know what does.
+Don't try to hack your employer, newspaper, school or anyone else. Don't launch any random tools you find on the internet. Don't execute commands if you don't know what it does.
 
 Do however, practice the things you learn in this course in a fantastic lab environment such as Hackthebox.
 {% endhint %}

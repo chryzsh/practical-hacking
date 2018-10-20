@@ -51,7 +51,7 @@ Let's take an example. We have this login field, asking us to give our UserId, b
 
 ![](.gitbook/assets/image%20%2815%29.png)
 
-What happens then, is that the proggram takes that input and put it into a statement that asks the database. The statement becomes:
+What happens then is the program takes that input and puts it into a statement that asks the database. The statement becomes:
 
  `SELECT * FROM Users WHERE UserId = 105 OR 1=1;`
 
@@ -79,19 +79,19 @@ LFI happens often in PHP and PHP based sites. Let's take an example from a simpl
 
 ![](.gitbook/assets/image%20%2824%29.png)
 
-What is going on down there? Some nagging about `include php` and some error stuff. In PHP, the script is going to take a user supplied value and use it as a path to include a file, the value provided can however be modified. So instead of providing PHP with the file it expects, we say we want to include another file from the local file system. So what kind of file do we retrieve and how do we know where its located? The answer is quitte smiple. We go for a file we know the path too and that is always present on the local file system. Since we can defer that this is a Linux from the `/var/www/index.php` path in the error message, we chose to get the **`/etc/passwd`** file which contains usernames.
+What is going on down there? Some nagging about `include php` and some error stuff. In PHP, the script is going to take a user supplied value and use it as a path to include a file, the value provided can however be modified. So instead of providing PHP with the file it expects, we say we want to include another file from the local file system. So what kind of file do we retrieve and how do we know where it's located? The answer is quite simple; we go for a file we know the path too and that is always present on the local file system. Since we can defer that this is a Linux from the `/var/www/index.php` path in the error message, we chose to get the **`/etc/passwd`** file which contains usernames.
 
 ![](.gitbook/assets/image.png)
 
-Huh? Why doesn't this work? Well, since the index.php file already resides in the `/var/www/` directory, we are now essentially trying to go to /var/www/etc/passwd which naturlaly doesn't exist. So we need to go back a few steps so we end up in the right directory. Maybe you remember from the Linux journey course that two dots `..` is like going backwards in the directories of the Linux file system.
+Huh? Why doesn't this work? Well, since the index.php file already resides in the `/var/www/` directory, we are now essentially trying to go to /var/www/etc/passwd which naturally doesn't exist. So we need to go back a few steps so we end up in the right directory. Maybe you remember from the Linux journey course that two dots `..` is like going backwards in the directories of the Linux file system.
 
 ![](.gitbook/assets/image%20%2842%29.png)
 
-Ok, you are probably getting annoyed now. Why do you keep showing us things that apparently doesn't work? Well, the answer is on the screen. If you read the error message closely you'll see that we now are trying to read a file `/etc/password.php` but the passwd file does not have a `php` file extension, so we need some way to remove it from our query. We use a little trick called null byte for this. It's a bug in older versions of PHP that allows to get rid of it. The null byte is url-encoded as `%00` so let's give this a shot.
+Ok, you are probably getting annoyed now. Why do you keep showing us things that apparently don't work? Well, the answer is on the screen. If you read the error message closely you'll see that we now are trying to read a file `/etc/password.php` but the passwd file does not have a `php` file extension, so we need some way to remove it from our query. We use a little trick called null byte for this. It's a bug in older versions of PHP that allows to get rid of it. The null byte is url-encoded as `%00` so let's give this a shot.
 
 ![](.gitbook/assets/image%20%285%29.png)
 
-Finally! We are able to read the `passwd` file from the local file system of our target machine. As you can see the output is a bit jumbled, so we copy tyhis out to our notes and format it neatly.
+Finally! We are able to read the `passwd` file from the local file system of our target machine. As you can see the output is a bit jumbled, so we copy this out to our notes and format it neatly.
 
 Now we want you to try and imagine two things
 
@@ -152,7 +152,7 @@ Let's go through some of the features of Burp Suite.
 
 **Proxy - intercept requests**
 
-Here, I have set up the OWASP Juice Shop for the purpose of this demo. It's a little website running locally on my machine, hence the URL shows localhost on port 3000. As you can see, I have clicked the "intercept is on" button and it's now toggled on. That means every request in the web browser is intercepted in burped and the web application hangs until i decide what to do. If we want, we can now edit any parameter in the request, forward or drop it.
+Here, I have set up the OWASP Juice Shop for the purpose of this demo. It's a little website running locally on my machine, hence the URL shows localhost on port 3000. As you can see, I have clicked the "intercept is on" button and it's now toggled on. That means every request in the web browser is intercepted in Burp and the web application hangs until i decide what to do. If we want, we can now edit any parameter in the request, forward, or drop it.
 
 ![A request has been intercepted](.gitbook/assets/image%20%2857%29.png)
 
@@ -236,7 +236,7 @@ Remember to try different extensions like `.py .pl .cgi` and `.sh`. What this do
 
 ### SQLmap - exploiting SQL injections automatically
 
-SQLmap is one of our absolute favorite hacking tools. It's immesenly powerful to the extent that even if you sat down and learnt every option in the program you would still have a lot to learn. It basically automatically performs every kind of SQL injection you can imagine and even allows you to get a shell on the system straight from the program. Quite fun indeed!
+SQLmap is one of our absolute favorite hacking tools. It's immensely powerful to the extent that even if you sat down and learnt every option in the program you would still have a lot to learn. It automatically performs every kind of SQL injection you can imagine and even allows you to get a shell on the system straight from the program. Quite fun indeed!
 
 This is pretty much the route we take when working with databases and injections. It is all built in a very neat hierarchy.
 

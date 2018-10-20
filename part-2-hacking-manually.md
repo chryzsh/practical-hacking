@@ -22,7 +22,7 @@ description: >-
 
 **Other relevant boxes**
 
-* * Blocky
+* Blocky
 * Optimum
 
 ## **Hacking manually with the Metasploit framework**
@@ -30,7 +30,7 @@ description: >-
 Previously we used Metasploit to automagically exploit a vulnerability and get a shell on a box. But what kind of black magic does Metasploit do? Let's break it down:
 
 1. It prepares a payload - a reverse shell - the code that executes on the target.
-2.  It prepares a listener/handler for receiving the reverse shell
+2. It prepares a listener/handler for receiving the reverse shell
 3. It uses a prepared exploit to exploit a vulnerable service. Which means it gets code execution on the target, and is then able to execute the payload.
 
 The listener catches the reverse shell connection - we now have a connection / reverse shell on the target, but we can't always rely on Metasploit to do this for us.
@@ -59,7 +59,7 @@ Now that we have prepared our payload, we open msfconsole, which we will use to 
 
 ![](.gitbook/assets/image%20%2817%29.png)
 
-Select the handler module, which let's us set up a listener to "catch" our shell from the payload we created:
+Select the handler module, which lets us set up a listener to "catch" our shell from the payload we created:
 
 `use exploit/multi/handler`
 
@@ -67,7 +67,7 @@ Set the correct payload \(needs to be identical to the payload we specified in `
 
 `set payload windows/meterpreter/reverse_tcp` 
 
-Now that our payload is selected we're going to do is to check what options we have to set. So we type `options`
+Now that our payload is selected we're going to check which options we have to set. So we type `options`
 
 ![](.gitbook/assets/image%20%2823%29.png)
 
@@ -105,7 +105,7 @@ Ok, so we have prepared our payload and listener. Now we need to actually find a
 
 #### Uploading files to the target
 
-The figure below shows a simple example where we use FTP to upload a payload to the server. In the green box in the bottoom left corner you can see we first navigate to the `/var/www/html` directory, which is a common directory for web servers on Linux systems. We then use the `put` command to upload a payload, in this case a PHP file since we are hoping to trigger it from the web server that runs PHP.
+The figure below shows a simple example where we use FTP to upload a payload to the server. In the green box in the bottom left corner you can see we first navigate to the `/var/www/html` directory, which is a common directory for web servers on Linux systems. We then use the `put` command to upload a payload, in this case a PHP file since we are hoping to trigger it from the web server that runs PHP.
 
 ![File upload to target using FTP](.gitbook/assets/image%20%2818%29.png)
 
@@ -123,9 +123,9 @@ Now that we have successfully uploaded our payload, we need to execute it on the
 
 This will happen to you, often. So, how do we then get our payload on the target?
 
-We need to start exploring more manual ways of getting our payload on the target. Since port 80 is open it means the target is running a web server. So start by navigating to the IP address of the target in the web browser in Kali. Start looking around and take a good look at what the webapp is. Is is a shop of any kind, a wordpress blog, does it have a login portal? Explore the source code of the page.
+We need to start exploring more manual ways of getting our payload on the target. Since port 80 is open it means the target is running a web server. So start by navigating to the IP address of the target in the web browser in Kali. Start looking around and take a good look at what the webapp is. Is it a shop of any kind, a wordpress blog, does it have a login portal? Explore the source code of the page.
 
-Remember, the kinds of vulnerabilities we found earlier have been oon a lower level, that is vulenrabilities in the server itself. Now we are hunting for vulnerabilities that reside in the web application itself. This is a whole new game, so we have dedicated entire [Part 3](part-3-web-hacking.md) of this guide to it.
+Remember, the kinds of vulnerabilities we found earlier have been on a lower level, that is vulnerabilities in the server itself. Now we are hunting for vulnerabilities that reside in the web application. This is a whole new game, so we have dedicated entire [Part 3](part-3-web-hacking.md) of this guide to it.
 
 ## **Credential abuse**
 
@@ -237,7 +237,7 @@ Confidential information and users that you can check.
 
 If you have gotten a Meterpreter session on a windows box but you realize you are not an administrator you have to escalate your privileges. Sometimes, boxes are not properly patched and you can use local exploits that exploit vulnerabilities in the Windows kernel to escalate. Metasploit has several post modules for this purpose. Post means they can only be used after you have compromised the machine and gotten a Meterpreter or shel. However, we need to find such exploits and the exploit suggester automatically searches for exploits that may allow you to escalate privileges.
 
-When we get a meterpreter we see a message that says somethinfg like "Meterpreter session 1 opened" followed by us getting an interactive Meterpreter session in msfconsole. 
+When we get a meterpreter we see a message that says something like "Meterpreter session 1 opened" followed by us getting an interactive Meterpreter session in msfconsole. 
 
 ![](.gitbook/assets/image%20%2853%29.png)
 
@@ -251,7 +251,7 @@ This is obviously enough called a _session._ When we use the exploit suggester, 
 
 ![](.gitbook/assets/image%20%2844%29.png)
 
-Now that the suggester has done its job, you will probably get a couple of suggestions for exploits. There are ways to properly verify whether they will work, but that is out of scope for this guide. We recommend that you try each one of the exploits, by using the `use` command in msfconsole with the exploit path, setting the session to your current meterpreter session and runnign it by typing `exploit` as before. If you are lucky, it will spawn a new meterpreter session with elevated privileges. That means you have successfully escalated your privileges from a local user to a local administrator. You are now in full control of your target!
+Now that the suggester has done its job, you will probably get a couple of suggestions for exploits. There are ways to properly verify whether they will work, but that is out of scope for this guide. We recommend that you try each one of the exploits, by using the `use` command in msfconsole with the exploit path, setting the session to your current meterpreter session and running it by typing `exploit` as before. If you are lucky, it will spawn a new meterpreter session with elevated privileges. That means you have successfully escalated your privileges from a local user to a local administrator. You are now in full control of your target!
 
 * [https://www.rapid7.com/db/modules/post/multi/recon/local\_exploit\_suggester](https://www.rapid7.com/db/modules/post/multi/recon/local_exploit_suggester)
 * [https://www.sploitspren.com/2018-01-26-Windows-Privilege-Escalation-Guide/](https://www.sploitspren.com/2018-01-26-Windows-Privilege-Escalation-Guide/)

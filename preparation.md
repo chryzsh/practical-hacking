@@ -17,7 +17,7 @@ description: >-
 
 ### **1 - Join the social channel**
 
-There is an official [Hackthebox Discord](https://discord.gg/BpWsXza). There is also a dedicated Hackthebox channel in the [Netsecfocus MM](https://mm.netsecfocus.com). Both have a lot of hackers eager to assist if you ask nicely.
+There is an official [Hackthebox Discord](https://discord.gg/BpWsXza). There is also a dedicated Hackthebox channel in the [Netsecfocus MM](https://mm.netsecfocus.com/join). Both have a lot of hackers eager to assist if you ask nicely.
 
 ### **2 - Install virtualization software**
 
@@ -73,7 +73,7 @@ HTB has a challenge to get an invite code where you have to "hack" it. We won't 
 
 [Join Hackthebox](https://www.hackthebox.eu/invite)
 
-Once you've gotten pas the challenge, you can register and start navigating around the Hackthebox website. HTB will be explained in further detail later in this guide, so don't start worrying if you feel a bit lost.
+Once you've gotten past the challenge, you can register and start navigating around the Hackthebox website. HTB will be explained in further detail later in this guide, so don't start worrying if you feel a bit lost.
 
 ### 6 - Connect to HTB using VPN
 
