@@ -35,7 +35,9 @@ You need to run Kali Linux as a virtual machine on your computer. There are a fe
 
 * [Download a Kali VM](https://www.offensive-security.com/kali-linux-vm-vmware-virtualbox-hyperv-image-download/) appropriate for your virtualization software of choice, see step 2. You want a 64-bit version, not x86/32-bit 
   *  [Kali Linux Vm 64 Bit Ova](https://images.offensive-security.com/virtual-images/kali-linux-2018.3-vm-amd64.ova) if you use VMware
+    * File -&gt; Open -&gt; _Select the Kali ovf file you downloaded_ -&gt; Open
   * [Kali Linux Vbox 64 Bit Ova](https://images.offensive-security.com/virtual-images/kali-linux-2018.3-vbox-amd64.ova) if you use Virtualbox
+    *  File &gt; Import Appliance &gt; _Select the Kali ova file you downloaded_ &gt; Import
 * You do not need to create a new user in Kali Linux. The root user is sufficient for this guide and will make installation of software work without using the `sudo` command.
 
 ### **4 - Make copypaste and fullscreen work**
