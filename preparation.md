@@ -54,7 +54,7 @@ Run the following command, make sure it installs and reboot the guest OS \(Kali\
 
 Run the following command, make sure it installs and then reboot the guest OS afterwards.
 
-`apt install open-vm-tools ope-nvm-tools-desktop` 
+`apt install open-vm-tools open-vm-tools-desktop` 
 
 #### Hyper-V
 
